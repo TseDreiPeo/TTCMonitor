@@ -16,6 +16,7 @@ namespace ComMonitor {
         public DateTime Time { get; internal set; }
         private byte[] RawData = new byte[C_MAX_PACKAGE_SIZE];
         public byte crc;
+        public bool crcOk;
 
         public int ExpectedLength { get { return GetExpectedLength(); } }
 
@@ -31,6 +32,16 @@ namespace ComMonitor {
             if(ExpectedLength > 2) { 
                 // Check the received Checksum....
                 crc = RawData[ExpectedLength - 1];
+                byte[] dataOnly = new byte[ExpectedLength-3];
+                Array.Copy(RawData, 2, dataOnly, 0, ExpectedLength - 3);
+                
+                byte calculated = crcCalculator.Checksum(dataOnly);
+                if (crc ==calculated) {
+                    crcOk = true;
+                } else {
+                    crcOk = false;
+                }
+
             }
         }
 
@@ -45,10 +56,14 @@ namespace ComMonitor {
                     retVal += Environment.NewLine;
                 }
             }
+            if (!crcOk) {
+                retVal += Environment.NewLine + "*** CRC ERROR ***";
+            }
 
             return retVal;
         }
 
+        private static CRC8Calc crcCalculator = new CRC8Calc(CRC8_POLY.CRC8_CCITT);
 
         // Factory Methods - static
         public static Package CreateStacieObcPackage(DateTime creationTime, byte pckCmd, byte pckTyp, bool DirIn) {

@@ -35,8 +35,10 @@ namespace TtcObcMonitor {
 
         public int Channel { get; set; }
         public DateTime Time { get; set; }
-        public Package Package { get; set; }        
-        public Brush Color { get; set; }
+        public Package Package { get; set; }
+
+        private Brush _Color;   
+        public Brush Color { get { return Package.crcOk ? _Color : Brushes.Red; } internal set { _Color = value; } }
 
         
 
@@ -78,6 +80,8 @@ namespace TtcObcMonitor {
             mpg.AddToPlotter(ThePlotter);
 
             mouseTrack = new CursorCoordinateGraph();
+            mouseTrack.ShowHorizontalLine = false;
+            mouseTrack.ShowVerticalLine = false;
             ThePlotter.Children.Add(mouseTrack);
 
             // this will make the most left axis to display ticks as percents
