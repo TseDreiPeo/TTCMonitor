@@ -14,7 +14,8 @@
         </Grid.RowDefinitions>
         <d3:ChartPlotter Grid.Row="0" Margin="10" LegendVisible="False" Name="ThePlotter" Visible="60000000,0,24,200">
             <d3:ChartPlotter.MainHorizontalAxis>
-                <d3:DateTimeAxis Name="XAxis"/>
+                <d3:TimeSpanAxis Name="XAxis" ShowMinorTicks="True" ShowMajorLabels="True">
+                </d3:TimeSpanAxis>
             </d3:ChartPlotter.MainHorizontalAxis>
             <d3:ChartPlotter.MainVerticalAxis>
                 <d3:VerticalIntegerAxis/>
@@ -24,7 +25,7 @@
             <d3:VerticalAxisTitle FontFamily="Arial" Content="Channel"/>
        </d3:ChartPlotter>
         <StackPanel Orientation="Horizontal" Grid.Row="1" >
-            <Button Content="AddPoint" Margin="10" Click="AddPoint_Click"/>
+            <Button Content="ClearAll" Margin="10" Click="ClearAll_Click"/>
         </StackPanel>
     </Grid>
 </Window>

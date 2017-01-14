@@ -13,8 +13,7 @@ namespace ComMonitor {
         }
 
         public override void FillData(byte[] currentPackageBytes) {
-            base.FillData(currentPackageBytes);
-            RecordId = currentPackageBytes[2];
+           RecordId = currentPackageBytes[2];
             switch(RecordId) {
                 case 1:
                 case 2:
@@ -27,6 +26,7 @@ namespace ComMonitor {
                 default:
                     break;
             }
+            base.FillData(currentPackageBytes);
         }
 
         protected override int GetExpectedLength() {

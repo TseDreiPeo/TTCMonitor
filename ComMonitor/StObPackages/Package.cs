@@ -34,6 +34,21 @@ namespace ComMonitor {
             }
         }
 
+            
+        public string GetDebugText() {
+            String retVal = String.Empty;
+            retVal += this.ToString() + Environment.NewLine;
+            
+            for (int i = 1; i<=GetExpectedLength(); i++) { 
+                retVal += RawData[i-1].ToString("X2") + " ";
+                if (i%8 == 0) {
+                    retVal += Environment.NewLine;
+                }
+            }
+
+            return retVal;
+        }
+
 
         // Factory Methods - static
         public static Package CreateStacieObcPackage(DateTime creationTime, byte pckCmd, byte pckTyp, bool DirIn) {
