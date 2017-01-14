@@ -43,8 +43,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MessageFactory.cs" />
+    <Compile Include="StObPackages\OpmodeAck.cs" />
+    <Compile Include="StObPackages\OpmodeExec.cs" />
+    <Compile Include="StObPackages\OpmodeNak.cs" />
+    <Compile Include="StObPackages\ReceiveAck.cs" />
+    <Compile Include="StObPackages\ReceiveExec.cs" />
+    <Compile Include="StObPackages\ReceiveNak.cs" />
+    <Compile Include="StObPackages\GetTelemetryAck.cs" />
+    <Compile Include="StObPackages\GetTelemetryExec.cs" />
+    <Compile Include="StObPackages\GetTelemetryNak.cs" />
+    <Compile Include="StObPackages\Package.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StObPackages\GetTelemetryAnswer.cs" />
+    <Compile Include="StObPackages\TransmitAck.cs" />
+    <Compile Include="StObPackages\TransmitExec.cs" />
+    <Compile Include="StObPackages\TransmitNak.cs" />
+    <Compile Include="StObPackages\UnknownPackage.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
