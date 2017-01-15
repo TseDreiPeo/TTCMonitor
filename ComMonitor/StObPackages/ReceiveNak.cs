@@ -1,7 +1,7 @@
 ﻿using System;
 
 namespace ComMonitor {
-    internal class ReceiveNak : Package {
+    public class ReceiveNak : Package {
         public ReceiveNak(DateTime creationTime) : base(creationTime) {
         }
 

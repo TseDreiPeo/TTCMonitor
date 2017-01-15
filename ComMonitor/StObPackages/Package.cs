@@ -16,7 +16,7 @@ namespace ComMonitor {
         public DateTime Time { get; internal set; }
         private byte[] RawData = new byte[C_MAX_PACKAGE_SIZE];
         public byte crc;
-        public bool crcOk;
+        public bool crcOk = true;
 
         public int ExpectedLength { get { return GetExpectedLength(); } }
 
@@ -36,7 +36,7 @@ namespace ComMonitor {
                 Array.Copy(RawData, 2, dataOnly, 0, ExpectedLength - 3);
                 
                 byte calculated = crcCalculator.Checksum(dataOnly);
-                if (crc ==calculated) {
+                if (crc == calculated) {
                     crcOk = true;
                 } else {
                     crcOk = false;

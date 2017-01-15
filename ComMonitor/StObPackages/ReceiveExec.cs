@@ -1,7 +1,7 @@
 ﻿using System;
 
 namespace ComMonitor {
-    internal class ReceiveExec : Package {
+    public class ReceiveExec : Package {
         public byte Pid { get; internal set; }
 
         public ReceiveExec(DateTime creationTime) : base(creationTime) {

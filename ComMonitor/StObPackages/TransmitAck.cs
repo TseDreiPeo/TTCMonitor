@@ -1,7 +1,7 @@
 ﻿using System;
 
 namespace ComMonitor {
-    internal class TransmitAck : Package {
+    public class TransmitAck : Package {
         public TransmitAck(DateTime creationTime) : base(creationTime) {
         }
 

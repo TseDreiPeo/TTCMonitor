@@ -1,7 +1,7 @@
 ﻿using System;
 
 namespace ComMonitor {
-    internal class OpmodeNak : Package {
+    public class OpmodeNak : Package {
         public OpmodeNak(DateTime creationTime) : base(creationTime) {
         }
 

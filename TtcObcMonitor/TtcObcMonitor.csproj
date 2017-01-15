@@ -89,6 +89,8 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MyPoint.cs" />
+    <Compile Include="PackagePointCollection.cs" />
     <Compile Include="PlotDataSource.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>

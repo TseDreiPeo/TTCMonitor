@@ -25,29 +25,7 @@ using Microsoft.Research.DynamicDataDisplay.Charts.Navigation;
 
 namespace TtcObcMonitor {
 
-    public class MyPoint {
-        public MyPoint(DateTime now, int v, Package p, Brush color) {
-            Time = now;
-            Channel = v;
-            Package = p;
-            Color = color;
-        }
-
-        public int Channel { get; set; }
-        public DateTime Time { get; set; }
-        public Package Package { get; set; }
-
-        private Brush _Color;   
-        public Brush Color { get { return Package.crcOk ? _Color : Brushes.Red; } internal set { _Color = value; } }
-
-        
-
-        public string GetFloatoverText() {
-            return Package.GetDebugText();
-        }
-    }
-
-    /// <summary>
+    ///// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window, INotifyPropertyChanged {
@@ -71,12 +49,13 @@ namespace TtcObcMonitor {
                 return new Point(this.XAxis.ConvertToDouble(new TimeSpan(0, o.Time.Hour, o.Time.Minute, o.Time.Second, o.Time.Millisecond )), (o.Channel));
             });
             ipds.AddMapping(CircleElementPointMarker.ToolTipTextProperty, mp => { return mp.GetFloatoverText(); });
-            ipds.AddMapping(CircleElementPointMarker.FillProperty, mp => { return mp.Color; });
-            ipds.AddMapping(CircleElementPointMarker.PenProperty, mp => { return new Pen(mp.Color, 2); });
+            ipds.AddMapping(CircleElementPointMarker.FillProperty, mp => { return mp.PenColour; });
+            ipds.AddMapping(CircleElementPointMarker.BrushProperty, mp => { return mp.Color; });
+            ipds.AddMapping(CircleElementPointMarker.PenProperty, mp => { return new Pen(mp.Color, 5);});
 
 
             ElementMarkerPointsGraph mpg = new ElementMarkerPointsGraph(ipds);
-            mpg.Marker = new CircleElementPointMarker() { Brush = Brushes.Blue, Size= 10.3, Fill = Brushes.Blue, Pen = new Pen(Brushes.Black, 2), ToolTipText="TTT" };
+            mpg.Marker = new CircleElementPointMarker() { Brush = Brushes.Blue, Size= 15, Fill = Brushes.Blue, Pen = new Pen(Brushes.Black, 4), ToolTipText="TTT" };
             mpg.AddToPlotter(ThePlotter);
 
             mouseTrack = new CursorCoordinateGraph();
@@ -150,16 +129,6 @@ namespace TtcObcMonitor {
         }
 
         #endregion
-    }
-
-
-    public class PackagePointCollection : RingArray<MyPoint> {
-        private const int TOTAL_POINTS = 3000;
-
-        public PackagePointCollection()
-            : base(TOTAL_POINTS) // here i set how much values to show 
-        {
-        }
     }
 
 }
