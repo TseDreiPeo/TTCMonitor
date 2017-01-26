@@ -12,6 +12,8 @@ namespace ComMonitor {
         private const byte C_PCKTYP_EXEC = 0x4b;
         private const byte C_PCKTYP_ACK = 0x00;
         private const byte C_PCKTYP_NAK = 0xFF;
+        private const byte C_PCKTYP_NAK2 = 0x7F;     // Wegen Stacie Bug... 
+
 
         public DateTime Time { get; internal set; }
         private byte[] RawData = new byte[C_MAX_PACKAGE_SIZE];
@@ -80,7 +82,7 @@ namespace ComMonitor {
                     return new GetTelemetryExec(creationTime);
                 } else if(pckTyp == C_PCKTYP_ACK) {
                     return new GetTelemetryAck(creationTime);
-                } else if(pckTyp == C_PCKTYP_NAK) {
+                } else if((pckTyp == C_PCKTYP_NAK) || (pckTyp == C_PCKTYP_NAK2))  {
                     return new GetTelemetryNak(creationTime);
                 }
             } else if(pckCmd == C_PCKCMD_OPMODE) {

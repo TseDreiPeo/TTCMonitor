@@ -55,6 +55,9 @@ namespace ComMonitor {
                 // 2 bytes are enough to decide on Package cmd/type.
                 if(CurrentOffset <= 1) {
                     // Only the first 2 bytes of a new Package create that Package.
+                    if (CurrentPackageBytes[0] == 0x1e) {
+                        byte b2 = CurrentPackageBytes[1];
+                    }
                     CurrentPackage = Package.CreateStacieObcPackage(PackageStartTime, CurrentPackageBytes[0], CurrentPackageBytes[1], !OtoS);
                 }
                 if(CurrentPackage.ExpectedLength > len + CurrentOffset) {

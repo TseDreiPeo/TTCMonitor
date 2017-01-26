@@ -24,6 +24,7 @@ namespace ComMonitor {
                     varLength = 6;
                     break;
                 default:
+                    varLength = 6;
                     break;
             }
             base.FillData(currentPackageBytes);
