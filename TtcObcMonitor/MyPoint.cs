@@ -54,6 +54,11 @@ namespace TtcObcMonitor {
         public string GetFloatoverText() {
             return Package.GetDebugText();
         }
+
+        public string GetDeatailedText() {
+            return Package.ToString();
+        }
+
     }
 
 

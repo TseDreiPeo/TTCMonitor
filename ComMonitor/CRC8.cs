@@ -22,6 +22,14 @@ namespace ComMonitor {
     public class CRC8Calc {
         private byte[] table = new byte[256];
 
+        public byte Checksum(int offset, int len, params byte[] val) {
+            byte[] copy = new byte[len];
+            for (int i = offset; i-offset<len; i++ ) {
+                copy[i - offset] = val[i]; 
+            }
+            return Checksum(copy);
+        }
+
         public byte Checksum(params byte[] val) {
             if(val == null)
                 throw new ArgumentNullException("val");

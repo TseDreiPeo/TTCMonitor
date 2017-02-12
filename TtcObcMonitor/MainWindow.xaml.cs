@@ -95,7 +95,7 @@ namespace TtcObcMonitor {
                                                                   (mp.Time.Second == xPos.Seconds)).FirstOrDefault();
 
             if (theClickedPoint != null) {
-                MessageBox.Show(theClickedPoint.GetFloatoverText());
+                MessageBox.Show(theClickedPoint.GetDeatailedText());
             }
         }
 

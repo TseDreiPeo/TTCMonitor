@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="CRC8.cs" />
     <Compile Include="MessageFactory.cs" />
+    <Compile Include="StacieCom.cs" />
     <Compile Include="StObPackages\OpmodeAck.cs" />
     <Compile Include="StObPackages\OpmodeExec.cs" />
     <Compile Include="StObPackages\OpmodeNak.cs" />

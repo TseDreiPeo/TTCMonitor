@@ -18,7 +18,7 @@ namespace ComMonitor {
     public class MessageFactory {
         private const int C_MAX_PACKAGE_SIZE = 50;
 
-        private SerialPort Port;
+        protected SerialPort Port;
         private bool OtoS;
         
         private byte[] CurrentPackageBytes = new byte[C_MAX_PACKAGE_SIZE];

@@ -7,6 +7,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ComMonitor", "ComMonitor\Co
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TtcObcMonitor", "TtcObcMonitor\TtcObcMonitor.csproj", "{77CFB5D7-E40B-4126-92EC-8ED14D087F20}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BeaconMonitor", "BeaconMonitor\BeaconMonitor.csproj", "{D2290E2C-2311-4124-BEDB-56F98D70278B}"
+	ProjectSection(ProjectDependencies) = postProject
+		{642252AE-92D3-4D04-8FE7-98A147FDD21B} = {642252AE-92D3-4D04-8FE7-98A147FDD21B}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +26,10 @@ Global
 		{77CFB5D7-E40B-4126-92EC-8ED14D087F20}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{77CFB5D7-E40B-4126-92EC-8ED14D087F20}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{77CFB5D7-E40B-4126-92EC-8ED14D087F20}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D2290E2C-2311-4124-BEDB-56F98D70278B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D2290E2C-2311-4124-BEDB-56F98D70278B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D2290E2C-2311-4124-BEDB-56F98D70278B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D2290E2C-2311-4124-BEDB-56F98D70278B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

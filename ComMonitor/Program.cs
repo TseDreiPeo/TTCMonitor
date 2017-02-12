@@ -27,7 +27,9 @@ namespace ComMonitor {
         }
 
         private static void Mf_OnPackageReceived(object source, ProtocolPackageReceivedEventArgs e) {
-            Console.WriteLine($"{e.ReceivedPackage.Time}-{e.ReceivedPackage.ToString()}");
+            if(e.ReceivedPackage is TransmitExec) {
+                Console.WriteLine($"{e.ReceivedPackage.Time}-{e.ReceivedPackage.ToString()}");
+            }
         }
     }
 }

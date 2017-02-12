@@ -1,0 +1,26 @@
+﻿<Window x:Class="BeaconMonitor.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BeaconMonitor"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="350" Width="525">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal" >
+            <ComboBox x:Name="comSelector" MinWidth="70" Height="40" VerticalAlignment="Top" />
+            <TextBox x:Name="logText" Height="200" MinWidth="200" VerticalAlignment="Top"  />
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" Grid.Row="1" Height="Auto">
+            <TextBox x:Name="setDays"  Text="0" Width="58"/>
+            <TextBox x:Name="setHours"  Text="00" Width="58"/>
+            <TextBox x:Name="setMinute"  Text="00" Width="58"/>
+            <TextBox x:Name="setSeconds" Text="00"  Width="58"/>
+            <Button x:Name="sendDelta" Content="Send Delta" Click="sendDelta_Click"/>
+        </StackPanel>
+    </Grid>
+</Window>
