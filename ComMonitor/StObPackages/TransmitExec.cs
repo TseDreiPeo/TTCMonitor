@@ -23,8 +23,14 @@ namespace ComMonitor {
                 ReadableRepresentation = CreateObcBeacon1String(currentPackageBytes);
             } else if (Pid == 0x56) {
                 ReadableRepresentation = CreateObcBeacon2String(currentPackageBytes);
+            } else {
+                ReadableRepresentation = "Received: ";
+                foreach (byte b in currentPackageBytes) {
+                    ReadableRepresentation += b.ToString("X2") + " ";
+                }
+                ReadableRepresentation += System.Environment.NewLine;
             }
-            
+
         }
 
 

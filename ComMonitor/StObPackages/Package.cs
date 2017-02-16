@@ -4,13 +4,13 @@ namespace ComMonitor {
     public abstract class Package {
         public const int C_MAX_PACKAGE_SIZE = 50;
 
-        private const byte C_PCKCMD_TRANSMIT = 0x07;
+        public const byte C_PCKCMD_TRANSMIT = 0x07;
         public const byte C_PCKCMD_RECEIVE = 0x1E;
         private const byte C_PCKCMD_GETTELEMETRY = 0x2D;
         private const byte C_PCKCMD_OPMODE = 0x2A;
 
         public const byte C_PCKTYP_EXEC = 0x4b;
-        private const byte C_PCKTYP_ACK = 0x00;
+        public const byte C_PCKTYP_ACK = 0x00;
         private const byte C_PCKTYP_NAK = 0xFF;
         private const byte C_PCKTYP_NAK2 = 0x7F;     // Wegen Stacie Bug... 
 

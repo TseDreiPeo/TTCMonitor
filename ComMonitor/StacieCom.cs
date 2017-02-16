@@ -34,5 +34,12 @@ namespace ComMonitor {
             buffer[48] = crc.Checksum(2, 46, buffer);
             Port.Write(buffer, 0, 49);
         }
+
+        public void SendTransmitAck() {
+            Byte[] buffer = new Byte[49];
+            buffer[0] = Package.C_PCKCMD_TRANSMIT;
+            buffer[1] = Package.C_PCKTYP_ACK;
+            Port.Write(buffer, 0, 2);
+        }
     }
 }

@@ -10,12 +10,18 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <StackPanel Orientation="Horizontal" >
             <ComboBox x:Name="comSelector" MinWidth="70" Height="40" VerticalAlignment="Top" />
             <TextBox x:Name="logText" Height="200" MinWidth="200" VerticalAlignment="Top"  />
         </StackPanel>
         <StackPanel Orientation="Horizontal" Grid.Row="1" Height="Auto">
+            <TextBox x:Name="logFile"  Text="c:\Qtemp" Width="258"/>
+            <Button x:Name="selectFile" Content="..." Click="selectFile_Click"/>
+            <CheckBox x:Name="writeLog" Content="Write Log" Checked="writeLog_Checked" Unchecked="writeLog_Unchecked"/>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" Grid.Row="2" Height="Auto">
             <TextBox x:Name="setDays"  Text="0" Width="58"/>
             <TextBox x:Name="setHours"  Text="00" Width="58"/>
             <TextBox x:Name="setMinute"  Text="00" Width="58"/>
