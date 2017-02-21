@@ -47,7 +47,7 @@ namespace BeaconMonitor {
                 TransmitExec te = e.ReceivedPackage as TransmitExec;
                 if (te != null) {
                     
-                    MyLogFile.WriteLine($"Packge received: {te.ReadableRepresentation}");
+                    MyLogFile?.WriteLine($"Packge received: {te.ReadableRepresentation}");
                     MyStacie.SendTransmitAck();
                 }
 
@@ -91,7 +91,7 @@ namespace BeaconMonitor {
         }
 
         private void writeLog_Unchecked(object sender, RoutedEventArgs e) {
-            MyLogFile.Close();
+            MyLogFile?.Close();
             MyLogFile = null;
         }
     }
