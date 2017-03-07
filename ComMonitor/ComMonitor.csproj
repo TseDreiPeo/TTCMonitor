@@ -63,6 +63,10 @@
     <Compile Include="StObPackages\TransmitExec.cs" />
     <Compile Include="StObPackages\TransmitNak.cs" />
     <Compile Include="StObPackages\UnknownPackage.cs" />
+    <Compile Include="UpDownlink\DownlinkData.cs" />
+    <Compile Include="UpDownlink\LinkData.cs" />
+    <Compile Include="UpDownlink\ObcBeacon2.cs" />
+    <Compile Include="UpDownlink\ObcBeacon1.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

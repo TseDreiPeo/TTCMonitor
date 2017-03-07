@@ -12,6 +12,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BeaconMonitor", "BeaconMoni
 		{642252AE-92D3-4D04-8FE7-98A147FDD21B} = {642252AE-92D3-4D04-8FE7-98A147FDD21B}
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PegasusGsMonitor", "PegasusGsMonitor\PegasusGsMonitor.csproj", "{33486D11-A3A5-4B9C-84F7-C03BFB1857B4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,6 +32,10 @@ Global
 		{D2290E2C-2311-4124-BEDB-56F98D70278B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D2290E2C-2311-4124-BEDB-56F98D70278B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D2290E2C-2311-4124-BEDB-56F98D70278B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{33486D11-A3A5-4B9C-84F7-C03BFB1857B4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{33486D11-A3A5-4B9C-84F7-C03BFB1857B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{33486D11-A3A5-4B9C-84F7-C03BFB1857B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{33486D11-A3A5-4B9C-84F7-C03BFB1857B4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

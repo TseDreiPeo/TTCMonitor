@@ -12,21 +12,91 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <StackPanel Orientation="Horizontal" >
-            <ComboBox x:Name="comSelector" MinWidth="70" Height="40" VerticalAlignment="Top" />
-            <TextBox x:Name="logText" Height="200" MinWidth="200" VerticalAlignment="Top"  />
-        </StackPanel>
-        <StackPanel Orientation="Horizontal" Grid.Row="1" Height="Auto">
-            <TextBox x:Name="logFile"  Text="c:\Qtemp" Width="258"/>
-            <Button x:Name="selectFile" Content="..." Click="selectFile_Click"/>
-            <CheckBox x:Name="writeLog" Content="Write Log" Checked="writeLog_Checked" Unchecked="writeLog_Unchecked"/>
-        </StackPanel>
-        <StackPanel Orientation="Horizontal" Grid.Row="2" Height="Auto">
-            <TextBox x:Name="setDays"  Text="0" Width="58"/>
-            <TextBox x:Name="setHours"  Text="00" Width="58"/>
-            <TextBox x:Name="setMinute"  Text="00" Width="58"/>
-            <TextBox x:Name="setSeconds" Text="00"  Width="58"/>
-            <Button x:Name="sendDelta" Content="Send Delta" Click="sendDelta_Click"/>
-        </StackPanel>
+        <TabControl>
+            <TabItem Header="Communication">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <StackPanel Orientation="Horizontal" >
+                        <ComboBox x:Name="comSelector" MinWidth="70" Height="23" VerticalAlignment="Top" />
+                        <TextBox x:Name="logText" Height="200" MinWidth="200" VerticalAlignment="Top"  />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Grid.Row="1" Height="Auto">
+                        <TextBox x:Name="logFile"  Text="c:\Qtemp" Width="258"/>
+                        <Button x:Name="selectFile" Content="..." Click="selectFile_Click"/>
+                        <CheckBox x:Name="writeLog" Content="Write Log" Checked="writeLog_Checked" Unchecked="writeLog_Unchecked"/>
+                    </StackPanel>
+                </Grid>
+            </TabItem>
+            <TabItem Name="adcsTab" Header="ADCS-Up">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Row="0" Grid.Column="0" Content="ADCS-Time:" />
+                        <TextBox Grid.Row="0" Grid.Column="1" Name="aTime" Text="0" MinWidth="60"/>
+                        <Label Grid.Row="1" Grid.Column="0" Content="ADCS-Axis:" />
+                        <TextBox Grid.Row="1" Grid.Column="1" Name="aAxis" Text="0" MinWidth="60"/>
+                        <Label Grid.Row="2" Grid.Column="0" Content="ADCS-ECC:" />
+                        <TextBox Grid.Row="2" Grid.Column="1" Name="aEcc" Text="0" MinWidth="60"/>
+                        <Label Grid.Row="3" Grid.Column="0" Content="ADCS-Periap: " />
+                        <TextBox Grid.Row="3" Grid.Column="1" Name="aPeri" Text="0" MinWidth="60"/>
+                        <Label Grid.Row="4" Grid.Column="0" Content="ADCS-ASC:" />
+                        <TextBox Grid.Row="4" Grid.Column="1" Name="aAsc" Text="0" MinWidth="60"/>
+                        <Label Grid.Row="5" Grid.Column="0" Content="ADCS-Inc:" />
+                        <TextBox Grid.Row="5" Grid.Column="1" Name="aInc" Text="0" MinWidth="60"/>
+                        <Label Grid.Row="6" Grid.Column="0" Content="ADCS-Mean: " />
+                        <TextBox Grid.Row="6" Grid.Column="1" Name="aMean" Text="0" MinWidth="60"/>
+
+
+
+                        <Label Grid.Row="0" Grid.Column="2" Content="Board Time: " />
+                        <TextBox Grid.Row="0" Grid.Column="3" Text="{Binding Path=BoardTime, Mode=OneWay}" MinWidth="60" IsEnabled="False"/>
+                        <Label Grid.Row="1" Grid.Column="2" Content="DesiredTime: " />
+                        <StackPanel Grid.Row="1" Grid.Column="3"  Orientation="Horizontal">
+                            <TextBox Text="{Binding Path=DesiredTime}" MinWidth="60" />
+                            <Button Content="dv" Click="Calculate_DeltaTime"/>
+                        </StackPanel>
+
+
+
+                        <Label Grid.Row="2" Grid.Column="2" Content="Days: " />
+                        <TextBox Grid.Row="2" Grid.Column="3" x:Name="setDays"  Text="{Binding Path=RtcDeltaDays}" MinWidth="60" />
+                        <Label Grid.Row="3" Grid.Column="2" Content="Hours: " />
+                        <TextBox Grid.Row="3" Grid.Column="3" x:Name="setHours"  Text="{Binding Path=RtcDeltaHours}" MinWidth="60"/>
+                        <Label Grid.Row="4" Grid.Column="2" Content="Minutes: " />
+                        <TextBox Grid.Row="4" Grid.Column="3" x:Name="setMinute"  Text="{Binding Path=RtcDeltaMinutes}" MinWidth="60"/>
+                        <Label Grid.Row="5" Grid.Column="2" Content="Seconds: " />
+                        <TextBox Grid.Row="5" Grid.Column="3" x:Name="setSeconds" Text="{Binding Path=RtcDeltaSeconds}"  MinWidth="60"/>
+                        <Label Grid.Row="6" Grid.Column="2" Content="-> Delta: " />
+                        <TextBox Grid.Row="6" Grid.Column="3" x:Name="rtcDelta" Text="{Binding RtcDelta, Mode=OneWay}" MinWidth="60" IsEnabled="False"/>
+                    </Grid>
+                    <StackPanel Orientation="Horizontal" Grid.Row="2" Height="Auto">
+                        
+                        <Button x:Name="sendDelta" Content="Send Delta" Click="sendDelta_Click"/>
+                    </StackPanel>
+                </Grid>
+            </TabItem>
+        </TabControl>
     </Grid>
 </Window>

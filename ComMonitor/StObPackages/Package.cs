@@ -16,7 +16,7 @@ namespace ComMonitor {
 
 
         public DateTime Time { get; internal set; }
-        private byte[] RawData = new byte[C_MAX_PACKAGE_SIZE];
+        protected byte[] RawData = new byte[C_MAX_PACKAGE_SIZE];
         public byte crc;
         public bool crcOk = true;
 

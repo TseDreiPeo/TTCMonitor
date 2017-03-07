@@ -1,0 +1,22 @@
+﻿<Window x:Class="PegasusGsMonitor.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PegasusGsMonitor"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="350" Width="825">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal">
+            <TextBox Name="myUrl" Margin="5" Text="http://pharmalab.dorn.at/spacedata/monitorv5.php?id=-1&amp;from=2017-03-01+10%3A00&amp;to=2017-03-01+19%3A00&amp;OK=OK" />
+            <Button Margin="5" Content="..." Click="Button_Click"/>
+        </StackPanel>
+        <WebBrowser Name="wb" Grid.Row="1" HorizontalAlignment="Stretch" Margin="5" VerticalAlignment="Stretch" />
+
+    </Grid>
+</Window>

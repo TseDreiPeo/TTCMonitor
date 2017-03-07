@@ -9,15 +9,24 @@ namespace ComMonitor {
         }
 
         public byte Pid { get; internal set; }
+        public byte CntLen { get; internal set; }
+        public byte PckNr { get; internal set; }
+
         public string ReadableRepresentation { get; set; }
     
         protected override int GetExpectedLength() {
             return 49;
         }
 
+        public byte[] GetRawData() {
+            return this.RawData;
+        }
+
         public override void FillData( byte[] currentPackageBytes) {
             base.FillData( currentPackageBytes);
             Pid = currentPackageBytes[2];
+            CntLen = currentPackageBytes[3];
+            PckNr = currentPackageBytes[4];
             // ...
             if (Pid == 0x53) {
                 ReadableRepresentation = CreateObcBeacon1String(currentPackageBytes);
