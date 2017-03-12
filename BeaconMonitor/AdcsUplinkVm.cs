@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace BeaconMonitor {
-    public class AdcsUplinkVm :ObservableObject {
+    public class AdcsUplinkVm :ObservableObject  {
 
         #region Data Mappings
         // ADCS Mapping members

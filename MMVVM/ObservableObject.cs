@@ -8,7 +8,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BeaconMonitor {
+namespace MMVVM {
     /// <summary>
     ///     Baseclase able to raise INotifyPropertyChanged when proprty is modified by using ChangeValue() Method.
     /// </summary>
