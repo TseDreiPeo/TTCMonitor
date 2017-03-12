@@ -13,6 +13,10 @@ namespace MMVVM {
     ///     Baseclase able to raise INotifyPropertyChanged when proprty is modified by using ChangeValue() Method.
     /// </summary>
     public class ObservableObject : INotifyPropertyChanged {
+
+        /// <summary>
+        ///     Implements the INotifyPropertyChanged event
+        /// </summary>
         public event PropertyChangedEventHandler PropertyChanged;
         //public object MyTest;
 
@@ -40,7 +44,7 @@ namespace MMVVM {
                     PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
                 }
 
-                // code for netstd >= 1.5 (.NET >= 4.6.2) but not for netstd 2.0!!! -> you have to stich with 4.6.1 for that !!!! see :
+                // code for netstd >= 1.5 (.NET >= 4.6.2) but not for netstd 2.0!!! -> you have to stick with 4.6.1 for that !!!! see : https://blogs.msdn.microsoft.com/dotnet/2016/09/26/introducing-net-standard/
                 // PropertyInfo propertyInfo = this.GetType().GetProperty(propertyName);
                 //object oldValue = propertyInfo?.GetValue(this);
 
@@ -63,6 +67,11 @@ namespace MMVVM {
         //    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         //}
 
+        /// <summary>
+        ///     Allows to invoke(trigger) the PropertyChanged event for the specified member property.
+        /// </summary>
+        /// <typeparam name="T">the type of the changed Member property</typeparam>
+        /// <param name="propFieldExpression">Expression in form of '() => nameOfProp' to specify the changed member property.</param>
         public void InovokePropertyChanged<T>(Expression<Func<T>> propFieldExpression) {
             MemberExpression MemberProperty = propFieldExpression.Body as MemberExpression;
             string propName = MemberProperty.Member.Name;
