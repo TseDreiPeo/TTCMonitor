@@ -16,6 +16,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using ComMonitor;
 using Microsoft.Win32;
+using System.Windows.Threading;
 
 namespace BeaconMonitor {
     /// <summary>
@@ -25,6 +26,7 @@ namespace BeaconMonitor {
         private StacieCom MyStacie;
         private StreamWriter MyLogFile;
         private AdcsUplinkVm AdcsVm;
+        private DispatcherTimer dispatcherTimer;
 
 
         public MainWindow() {
@@ -34,7 +36,22 @@ namespace BeaconMonitor {
 
             AdcsVm = new AdcsUplinkVm();
             this.adcsTab.DataContext = AdcsVm;
+
+            dispatcherTimer = new System.Windows.Threading.DispatcherTimer();
+            dispatcherTimer.Tick += dispatcherTimer_Tick;
+            dispatcherTimer.Interval = new TimeSpan(0, 0, 1);
+            dispatcherTimer.Start();
+         
         }
+        private void dispatcherTimer_Tick(object sender, EventArgs e)
+        {
+            if (this.AdcsVm.BoardTime != null)
+            {
+                this.AdcsVm.BoardTime = this.AdcsVm.BoardTime.Value.AddSeconds(1);
+
+            }
+        }
+
 
         private void ComSelector_SelectionChanged(object sender, SelectionChangedEventArgs e) {
             if (MyStacie != null) {
@@ -71,7 +88,7 @@ namespace BeaconMonitor {
         private void OnDownlinkFinished(DownlinkData dd) {
             ObcBeacon2 ob2 = dd as ObcBeacon2;
             if (ob2 != null) {
-                this.AdcsVm.BoardTime = ob2.BoardTime; 
+                this.AdcsVm.BoardTime = ob2.BoardTime;
             }
         }
 
@@ -111,7 +128,15 @@ namespace BeaconMonitor {
 
 
         private void Calculate_DeltaTime(object sender, RoutedEventArgs e) {
+            TimeSpan? diff = (this.AdcsVm.DesiredDate.AddHours(AdcsVm.DesiredHour).AddMinutes(AdcsVm.DesiredMin) - this.AdcsVm.BoardTime);
+            if (diff != null) {
+                this.AdcsVm.RtcDeltaSeconds = (short)diff.Value.Seconds;
+                this.AdcsVm.RtcDeltaMinutes = (short)diff.Value.Minutes;
+                this.AdcsVm.RtcDeltaHours = (short)diff.Value.Hours;
+                this.AdcsVm.RtcDeltaDays = (short)diff.Value.TotalDays;
+            }
 
         }
+
     }
 }

@@ -68,7 +68,7 @@ namespace ComMonitor {
                     CurrentPackage.FillData(CurrentPackageBytes);   // If there is too much it doesn't matter. The packages don't care about hangover in buffer.
                     if(CurrentPackage.ExpectedLength > len + CurrentOffset) {
                         // Some Packages have variable lenght :-( ! Only the 3rd byte decides on real lenght
-                        // so now we could find out here thet still something is missing.
+                        // so now we could find out here that still something is missing.
                         CurrentOffset += len;
                         return;         // This is ugly but I have no idea how to do otherwise....
                     }

@@ -37,6 +37,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Runtime" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -70,7 +71,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ObservableObject.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -101,6 +101,10 @@
     <ProjectReference Include="..\ComMonitor\ComMonitor.csproj">
       <Project>{642252AE-92D3-4D04-8FE7-98A147FDD21B}</Project>
       <Name>ComMonitor</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MMVVM\MMVVM.csproj">
+      <Project>{879c9d50-4d39-4564-a94e-3f2237593de2}</Project>
+      <Name>MMVVM</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

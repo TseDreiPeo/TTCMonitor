@@ -74,7 +74,11 @@
                         <TextBox Grid.Row="0" Grid.Column="3" Text="{Binding Path=BoardTime, Mode=OneWay}" MinWidth="60" IsEnabled="False"/>
                         <Label Grid.Row="1" Grid.Column="2" Content="DesiredTime: " />
                         <StackPanel Grid.Row="1" Grid.Column="3"  Orientation="Horizontal">
-                            <TextBox Text="{Binding Path=DesiredTime}" MinWidth="60" />
+                            <DatePicker SelectedDate="{Binding Path=DesiredDate}" MinWidth="40" />
+                            <Label Content="  "/>
+                            <TextBox Text="{Binding Path=DesiredHour}" MinWidth="30" />
+                            <Label Content=":"/>
+                            <TextBox Text="{Binding Path=DesiredMin}" MinWidth="30" />
                             <Button Content="dv" Click="Calculate_DeltaTime"/>
                         </StackPanel>
 

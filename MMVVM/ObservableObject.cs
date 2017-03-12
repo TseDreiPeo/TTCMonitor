@@ -24,20 +24,37 @@ namespace BeaconMonitor {
         /// <returns>true if the value was really changed.</returns>
         protected bool ChangeValue(object newValue, [CallerMemberName] String propertyName = "") {
             bool retVal = false;
-
-            PropertyInfo propertyInfo = this.GetType().GetProperty(propertyName);
-            object oldValue = propertyInfo?.GetValue(this);
-
-            if(((oldValue == null) && (newValue != null)) ||
-                  ((oldValue != null) && !oldValue.Equals(newValue))) {
-                FieldInfo fi = this.GetType().GetField("_" + propertyName, BindingFlags.NonPublic | BindingFlags.Instance);
-
-                if(fi != null) {
+            // dotnetstd 1.4:
+            var pi = this.GetType().GetTypeInfo().GetDeclaredProperty(propertyName);
+            object oldValue = pi?.GetValue(this);
+            if (((oldValue == null) && (newValue != null)) ||
+                  ((oldValue != null) && !oldValue.Equals(newValue)))
+            {
+                var fis = this.GetType().GetTypeInfo().DeclaredFields;
+                FieldInfo fi  = fis.Where(fisrec => fisrec.Name == "_" + propertyName).FirstOrDefault();
+                
+                if (fi != null)
+                {
                     fi.SetValue(this, newValue);
                     retVal = true;
                     PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-
                 }
+
+                // code for netstd >= 1.5 (.NET >= 4.6.2) but not for netstd 2.0!!! -> you have to stich with 4.6.1 for that !!!! see :
+                // PropertyInfo propertyInfo = this.GetType().GetProperty(propertyName);
+                //object oldValue = propertyInfo?.GetValue(this);
+
+                //if(((oldValue == null) && (newValue != null)) ||
+                //      ((oldValue != null) && !oldValue.Equals(newValue))) {
+                //    FieldInfo fi = this.GetType().GetField("_" + propertyName, BindingFlags.NonPublic | BindingFlags.Instance);
+
+                //   if(fi != null) {
+                //        fi.SetValue(this, newValue);
+                //        retVal = true;
+                //        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+                //    }
+
+
             }
             return retVal;
         }
