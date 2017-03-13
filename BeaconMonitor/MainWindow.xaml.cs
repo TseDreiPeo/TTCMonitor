@@ -45,11 +45,7 @@ namespace BeaconMonitor {
         }
         private void dispatcherTimer_Tick(object sender, EventArgs e)
         {
-            if (this.AdcsVm.BoardTime != null)
-            {
-                this.AdcsVm.BoardTime = this.AdcsVm.BoardTime.Value.AddSeconds(1);
-
-            }
+            this.AdcsVm.Refresh();
         }
 
 
@@ -65,7 +61,7 @@ namespace BeaconMonitor {
         List<TransmitExec> packatizedDownlink = new List<TransmitExec>();
         private void MyMessageFactory_OnPackageReceived(object source, ProtocolPackageReceivedEventArgs e) {
             Application.Current?.Dispatcher?.Invoke(new Action(() => {
-                this.logText.Text = e.ReceivedPackage.ToString();
+                this.logText.Text += Environment.NewLine + e.ReceivedPackage.ToString();
 
                 TransmitExec te = e.ReceivedPackage as TransmitExec;
                 if (te != null) {
@@ -88,7 +84,8 @@ namespace BeaconMonitor {
         private void OnDownlinkFinished(DownlinkData dd) {
             ObcBeacon2 ob2 = dd as ObcBeacon2;
             if (ob2 != null) {
-                this.AdcsVm.BoardTime = ob2.BoardTime;
+                AdcsVm.SyncBoardTime(ob2.BoardTime);
+              
             }
         }
 
@@ -98,6 +95,7 @@ namespace BeaconMonitor {
                 this.logText.Text = $"Send {deltaSec} delta.";
                 MyStacie.SendAdusrtRTC(deltaSec);
                 MyLogFile?.WriteLine(DateTime.UtcNow + ":" + this.logText.Text);
+                this.AdcsVm.LastSynced = null;
             } catch (Exception ex) {
                 this.logText.Text = ex.Message;
             }
@@ -138,5 +136,25 @@ namespace BeaconMonitor {
 
         }
 
+        private void SyncToUTC(object sender, RoutedEventArgs e)
+        {
+            TimeSpan? diff = (this.AdcsVm.UTC - this.AdcsVm.BoardTime);
+            if (diff != null)
+            {
+                try
+                {
+                    Int32 deltaSec = (Int32)diff.Value.TotalSeconds - 1;
+                    this.logText.Text = $"Send {deltaSec} delta.";
+                    MyStacie.SendAdusrtRTC(deltaSec);
+                    MyLogFile?.WriteLine(DateTime.UtcNow + ":" + this.logText.Text);
+                    this.AdcsVm.LastSynced = null;
+                }
+                catch (Exception ex)
+                {
+                    this.logText.Text = ex.Message;
+                }
+            }
+
+        }
     }
 }

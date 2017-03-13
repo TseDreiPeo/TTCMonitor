@@ -6,6 +6,9 @@
         xmlns:local="clr-namespace:BeaconMonitor"
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
+    <Window.Resources>
+        <local:ColourConverter x:Key="MyColorConverter" />
+    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
@@ -46,6 +49,7 @@
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
@@ -67,13 +71,17 @@
                         <TextBox Grid.Row="5" Grid.Column="1" Name="aInc" Text="0" MinWidth="60"/>
                         <Label Grid.Row="6" Grid.Column="0" Content="ADCS-Mean: " />
                         <TextBox Grid.Row="6" Grid.Column="1" Name="aMean" Text="0" MinWidth="60"/>
-
-
-
-                        <Label Grid.Row="0" Grid.Column="2" Content="Board Time: " />
-                        <TextBox Grid.Row="0" Grid.Column="3" Text="{Binding Path=BoardTime, Mode=OneWay}" MinWidth="60" IsEnabled="False"/>
-                        <Label Grid.Row="1" Grid.Column="2" Content="DesiredTime: " />
-                        <StackPanel Grid.Row="1" Grid.Column="3"  Orientation="Horizontal">
+                        
+                        <Label Grid.Row="0" Grid.Column="2" Content="UTC  Time: " />
+                        <StackPanel Grid.Row="0" Grid.Column="3" Orientation="Horizontal"  >
+                             <TextBox Text="{Binding Path=UTC, Mode=OneWay}" MinWidth="135" IsEnabled="False"/>
+                            <Button Content="Sync Pegasus" Click="SyncToUTC"/>
+                        </StackPanel>
+                        <Label Grid.Row="1" Grid.Column="2" Content="Board Time: " />
+                        <TextBox Grid.Row="1" Grid.Column="3" Text="{Binding Path=BoardTime, Mode=OneWay}"
+                                 Background="{Binding Mode=OneWay, Path=LastSyncValue, Converter={StaticResource MyColorConverter}}" MinWidth="60" IsEnabled="False"/>
+                        <Label Grid.Row="2" Grid.Column="2" Content="DesiredTime: " />
+                        <StackPanel Grid.Row="2" Grid.Column="3"  Orientation="Horizontal">
                             <DatePicker SelectedDate="{Binding Path=DesiredDate}" MinWidth="40" />
                             <Label Content="  "/>
                             <TextBox Text="{Binding Path=DesiredHour}" MinWidth="30" />
@@ -84,16 +92,16 @@
 
 
 
-                        <Label Grid.Row="2" Grid.Column="2" Content="Days: " />
-                        <TextBox Grid.Row="2" Grid.Column="3" x:Name="setDays"  Text="{Binding Path=RtcDeltaDays}" MinWidth="60" />
-                        <Label Grid.Row="3" Grid.Column="2" Content="Hours: " />
-                        <TextBox Grid.Row="3" Grid.Column="3" x:Name="setHours"  Text="{Binding Path=RtcDeltaHours}" MinWidth="60"/>
-                        <Label Grid.Row="4" Grid.Column="2" Content="Minutes: " />
-                        <TextBox Grid.Row="4" Grid.Column="3" x:Name="setMinute"  Text="{Binding Path=RtcDeltaMinutes}" MinWidth="60"/>
-                        <Label Grid.Row="5" Grid.Column="2" Content="Seconds: " />
-                        <TextBox Grid.Row="5" Grid.Column="3" x:Name="setSeconds" Text="{Binding Path=RtcDeltaSeconds}"  MinWidth="60"/>
-                        <Label Grid.Row="6" Grid.Column="2" Content="-> Delta: " />
-                        <TextBox Grid.Row="6" Grid.Column="3" x:Name="rtcDelta" Text="{Binding RtcDelta, Mode=OneWay}" MinWidth="60" IsEnabled="False"/>
+                        <Label Grid.Row="3" Grid.Column="2" Content="Days: " />
+                        <TextBox Grid.Row="3" Grid.Column="3" x:Name="setDays"  Text="{Binding Path=RtcDeltaDays}" MinWidth="60" />
+                        <Label Grid.Row="4" Grid.Column="2" Content="Hours: " />
+                        <TextBox Grid.Row="4" Grid.Column="3" x:Name="setHours"  Text="{Binding Path=RtcDeltaHours}" MinWidth="60"/>
+                        <Label Grid.Row="5" Grid.Column="2" Content="Minutes: " />
+                        <TextBox Grid.Row="5" Grid.Column="3" x:Name="setMinute"  Text="{Binding Path=RtcDeltaMinutes}" MinWidth="60"/>
+                        <Label Grid.Row="6" Grid.Column="2" Content="Seconds: " />
+                        <TextBox Grid.Row="6" Grid.Column="3" x:Name="setSeconds" Text="{Binding Path=RtcDeltaSeconds}"  MinWidth="60"/>
+                        <Label Grid.Row="7" Grid.Column="2" Content="-> Delta: " />
+                        <TextBox Grid.Row="7" Grid.Column="3" x:Name="rtcDelta" Text="{Binding RtcDelta, Mode=OneWay}" MinWidth="60" IsEnabled="False"/>
                     </Grid>
                     <StackPanel Orientation="Horizontal" Grid.Row="2" Height="Auto">
                         

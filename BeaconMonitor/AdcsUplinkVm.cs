@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace BeaconMonitor {
-    public class AdcsUplinkVm :ObservableObject  {
+    public class AdcsUplinkVm : ObservableObject {
 
         #region Data Mappings
         // ADCS Mapping members
@@ -53,6 +53,7 @@ namespace BeaconMonitor {
             get { return _AdcsMean; }
             set { ChangeValue(value); }
         }
+
 
         // RTC Mapping Members
         private Int16 _RtcDeltaDays = 0;
@@ -114,23 +115,42 @@ namespace BeaconMonitor {
             set { ChangeValue(value); }
         }
 
+        private DateTime? _LastSynced = null;
+        public DateTime? LastSynced
+        {
+            get { return _LastSynced; }
+            set { if (ChangeValue(value))
+                {
+                    InovokePropertyChanged(() => LastSyncValue);
+                }; }
+        }
+        public Double LastSyncValue {
+            get {
+                TimeSpan delta = UTC - LastSynced.Value;
+                return (delta.TotalSeconds * 2.0);
+            }
+        }
 
+        public DateTime UTC
+        {
+            get { return DateTime.UtcNow; }
+        }
 
-        private DateTime _DesiredDate = DateTime.Today;
+        private DateTime _DesiredDate =  new DateTime(2015,1,1,0,0,0);
         public DateTime DesiredDate
         {
             get { return _DesiredDate; }
             set { ChangeValue(value); }
         }
 
-        private int _DesiredHour = DateTime.Now.Hour;
+        private int _DesiredHour = 0;
         public int DesiredHour
         {
             get { return _DesiredHour; }
             set { ChangeValue(value); }
         }
 
-        private int _DesiredMin = DateTime.Now.Minute;
+        private int _DesiredMin = 0;
         public int DesiredMin
         {
             get { return _DesiredMin; }
@@ -149,6 +169,33 @@ namespace BeaconMonitor {
         }
 
         #endregion
+
+
+        public void Refresh(int deltaSeconds = 1)
+        {
+            InovokePropertyChanged(() => UTC);
+            InovokePropertyChanged(() => LastSyncValue);
+
+            if (this.LastSynced != null)
+            {
+                TimeSpan delta = UTC - LastSynced.Value;
+
+                if (BoardTime != null)
+                {
+                    BoardTime = BoardTime.Value.AddSeconds(deltaSeconds);
+                }
+            }
+
+
+        }
+
+        public void SyncBoardTime(DateTime? boardTime)
+        {
+            this.LastSynced = DateTime.UtcNow;
+            this.BoardTime = boardTime;
+        }
+
+
 
     }
 }
