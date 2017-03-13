@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace MMVVM {
     /// <summary>
-    ///     Baseclase able to raise INotifyPropertyChanged when proprty is modified by using ChangeValue() Method.
+    ///     Baseclass able to raise INotifyPropertyChanged when proprty is modified by using ChangeValue() Method.
     /// </summary>
     public class ObservableObject : INotifyPropertyChanged {
 

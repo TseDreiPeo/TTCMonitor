@@ -9,6 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TtcObcMonitor", "TtcObcMoni
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BeaconMonitor", "BeaconMonitor\BeaconMonitor.csproj", "{D2290E2C-2311-4124-BEDB-56F98D70278B}"
 	ProjectSection(ProjectDependencies) = postProject
+		{879C9D50-4D39-4564-A94E-3F2237593DE2} = {879C9D50-4D39-4564-A94E-3F2237593DE2}
 		{642252AE-92D3-4D04-8FE7-98A147FDD21B} = {642252AE-92D3-4D04-8FE7-98A147FDD21B}
 	EndProjectSection
 EndProject

@@ -3,16 +3,30 @@
   <PropertyGroup>
     <TargetFramework>netstandard1.4</TargetFramework>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <Version>0.0.6</Version>
+    <Version>0.0.7</Version>
     <Authors>Robert Kralofsky</Authors>
     <Company>RKOS IT</Company>
     <Description>My MVVM Base Classes</Description>
-    <AssemblyVersion>0.0.5.0</AssemblyVersion>
-    <FileVersion>0.0.5.0</FileVersion>
+    <AssemblyVersion>0.0.7.0</AssemblyVersion>
+    <FileVersion>0.0.7.0</FileVersion>
+    <DebugType>embedded</DebugType>
+    <RepositoryUrl>https://github.com/TseDreiPeo/TTCMonitor/MMVVM</RepositoryUrl>
+    <RepositoryType>github</RepositoryType>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <DocumentationFile>bin\Release\netstandard1.4\MMVVM.xml</DocumentationFile>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>bin\Debug\netstandard1.4\MMVVM.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <DotNetCliToolReference Include="dotnet-sourcelink" Version="2.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml.user" />
+  </ItemGroup>
 </Project>
