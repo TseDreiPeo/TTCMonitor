@@ -122,6 +122,18 @@
                     <StackPanel DockPanel.Dock="Left" Grid.Row="0">
                         <ComboBox x:Name="comSelector2" MinWidth="70" VerticalAlignment="Top" />
                         <Button Name="ClearCom2" Content="Clr" Click="ClearCom2_Click"  VerticalAlignment="Top"  />
+                        <Label/>
+                        <Button Background="RosyBrown" Name="Cmd0" Content="Reset" Click="Cmd0_Click"  />
+                        <Label/>
+                        <Button Name="Cmd1" Content="Info" Click="Cmd1_Click" />
+                        <Button Name="Cmd2" Content="TTC Info" Click="Cmd2_Click"/>
+                        <Button Name="Cmd3" Content="Logger Info" Click="Cmd3_Click" />
+                        <Button Name="Cmd4" Content="Scripts" Click="Cmd4_Click"/>
+                        <Label/>
+                        <DockPanel HorizontalAlignment="Stretch" >
+                            <TextBox Name="gpsTimeMin" Width="15" Text="5"/>
+                            <Button Name="Cmd5" Content="min GPS" Click="Cmd5_Click" HorizontalAlignment="Right"/>
+                        </DockPanel>
                     </StackPanel>
                     <RichTextBox Name="terminalTxt" >
                         <RichTextBox.Resources>

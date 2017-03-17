@@ -88,7 +88,7 @@ namespace BeaconMonitor
         {
             sr = File.OpenText(GpsSimPath);
             stopGpsSim = false;
-            t = new Timer(TimerCallback, null, 0, 2000);
+            t = new Timer(TimerCallback, null, 0, 1000);
         }
 
         private void TimerCallback(Object o)

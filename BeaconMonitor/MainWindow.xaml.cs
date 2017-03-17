@@ -248,6 +248,36 @@ namespace BeaconMonitor
                 this.cmdLine.Text = String.Empty;
             }
         }
+
+        private void Cmd1_Click(object sender, RoutedEventArgs e)
+        {
+            this.GpsVm.SendLine("$C,10001,0,0*");
+        }
+
+        private void Cmd2_Click(object sender, RoutedEventArgs e)
+        {
+            this.GpsVm.SendLine("$C,10002,0,0*");
+        }
+
+        private void Cmd3_Click(object sender, RoutedEventArgs e)
+        {
+            this.GpsVm.SendLine("$C,10002,0,0*");
+        }
+
+        private void Cmd4_Click(object sender, RoutedEventArgs e)
+        {
+            this.GpsVm.SendLine("$C,10004,0,0*");
+        }
+
+        private void Cmd0_Click(object sender, RoutedEventArgs e)
+        {
+            this.GpsVm.SendLine("$C,666,60,0*");
+        }
+
+        private void Cmd5_Click(object sender, RoutedEventArgs e)
+        {
+            this.GpsVm.SendLine($"$C,51,{this.gpsTimeMin.Text},0*");
+        }
     }
 }
 
