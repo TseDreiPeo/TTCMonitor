@@ -97,5 +97,10 @@ namespace ComMonitor {
                 CurrentOffset += len;
             }
         }
+        public void Diconnect()
+        {
+            Port.Close();
+            Port.Dispose();
+        }
     }
 }

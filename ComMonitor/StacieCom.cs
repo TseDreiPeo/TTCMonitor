@@ -41,5 +41,6 @@ namespace ComMonitor {
             buffer[1] = Package.C_PCKTYP_ACK;
             Port.Write(buffer, 0, 2);
         }
+
     }
 }

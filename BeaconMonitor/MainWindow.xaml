@@ -16,15 +16,17 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <TabControl>
-            <TabItem Header="Communication">
+            <TabItem Header="Com">
                 <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
-                    <StackPanel Orientation="Horizontal" >
-                        <ComboBox x:Name="comSelector" MinWidth="70" Height="23" VerticalAlignment="Top" />
-                        <TextBox x:Name="logText" Height="200" MinWidth="200" VerticalAlignment="Top"  />
+                    <StackPanel Orientation="Horizontal">
+                        <ComboBox x:Name="comSelector1" MinWidth="70" VerticalAlignment="Top" />
+                        <TextBox x:Name="logText1" Height="200" MinWidth="200" VerticalAlignment="Top"  />
+                        <Button Name="ClearCom1" Content="Clr" Click="ClearCom1_Click" VerticalAlignment="Top"  />
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Grid.Row="1" Height="Auto">
                         <TextBox x:Name="logFile"  Text="c:\Qtemp" Width="258"/>
@@ -90,8 +92,6 @@
                             <Button Content="dv" Click="Calculate_DeltaTime"/>
                         </StackPanel>
 
-
-
                         <Label Grid.Row="3" Grid.Column="2" Content="Days: " />
                         <TextBox Grid.Row="3" Grid.Column="3" x:Name="setDays"  Text="{Binding Path=RtcDeltaDays}" MinWidth="60" />
                         <Label Grid.Row="4" Grid.Column="2" Content="Hours: " />
@@ -108,6 +108,30 @@
                         <Button x:Name="sendDelta" Content="Send Delta" Click="sendDelta_Click"/>
                     </StackPanel>
                 </Grid>
+            </TabItem>
+            <TabItem Name="gpsTab" Header="GPS">
+                <DockPanel>
+                    <StackPanel DockPanel.Dock="Bottom">
+                        <TextBox Name="cmdLine" KeyDown="TextBox_KeyDown"/>
+                        <StackPanel Grid.Row="1" Orientation="Horizontal">
+                            <TextBox x:Name="gpsFile" Text="{Binding Path=GpsSimPath}" MinWidth="250"/>
+                            <Button x:Name="selectGpsFile" Content="..." Click="selectGpsFile_Click"/>
+                            <Button x:Name="startStop" Content="Start" Click="startStop_Click" />
+                        </StackPanel>
+                    </StackPanel>
+                    <StackPanel DockPanel.Dock="Left" Grid.Row="0">
+                        <ComboBox x:Name="comSelector2" MinWidth="70" VerticalAlignment="Top" />
+                        <Button Name="ClearCom2" Content="Clr" Click="ClearCom2_Click"  VerticalAlignment="Top"  />
+                    </StackPanel>
+                    <RichTextBox Name="terminalTxt" >
+                        <RichTextBox.Resources>
+                            <Style TargetType="{x:Type Paragraph}">
+                                <Setter Property="Margin" Value="0"/>
+                            </Style>
+                        </RichTextBox.Resources>
+                    </RichTextBox>
+
+                </DockPanel>
             </TabItem>
         </TabControl>
     </Grid>
