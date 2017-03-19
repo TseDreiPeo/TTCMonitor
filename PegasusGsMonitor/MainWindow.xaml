@@ -6,17 +6,57 @@
         xmlns:local="clr-namespace:PegasusGsMonitor"
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="825">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition/>
-            <RowDefinition/>
-        </Grid.RowDefinitions>
-        <StackPanel Orientation="Horizontal">
-            <TextBox Name="myUrl" Margin="5" Text="http://pharmalab.dorn.at/spacedata/monitorv5.php?id=-1&amp;from=2017-03-01+10%3A00&amp;to=2017-03-01+19%3A00&amp;OK=OK" />
-            <Button Margin="5" Content="..." Click="Button_Click"/>
-        </StackPanel>
-        <WebBrowser Name="wb" Grid.Row="1" HorizontalAlignment="Stretch" Margin="5" VerticalAlignment="Stretch" />
+    <DockPanel>
+        <!--<TextBox DockPanel.Dock="Top" Margin="5" Text="{Binding Path=Uri, Mode=OneWay}" />-->
+        <Grid DockPanel.Dock="Top">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Row="0" Grid.Column="0"  Content="BaseUri:"/>
+            <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Path=UriBase}" MinWidth="250"/>
 
-    </Grid>
+            <Label Grid.Row="1" Grid.Column="0"  Content="Application:"/>
+            <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Path=AppBase}"/>
+
+            <Label Grid.Row="2" Grid.Column="0"  Content="From Date:"/>
+            <DatePicker Grid.Row="2" Grid.Column="1" SelectedDate="{Binding Path=parFrom}" />
+        
+            <Label Grid.Row="3" Grid.Column="0"  Content="To Date:"/>
+            <DatePicker Grid.Row="3" Grid.Column="1" SelectedDate="{Binding Path=parTo}"/>
+
+        </Grid>
+        
+        <TabControl>
+            <TabItem Header="Browse">
+                <DockPanel>
+                <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
+                <Button Name="Nav" Margin="5" Content="Get Page" Click="Nav_Click"    />
+                <Button Name="Back" Margin="5" Content="&lt;--" Click="Back_Click" />
+                <Button Name="Forward" Margin="5" Content="-->" Click="Forward_Click" />
+                </StackPanel>
+                <WebBrowser Name="wb" HorizontalAlignment="Stretch" Margin="5" VerticalAlignment="Stretch" />
+                </DockPanel>
+            </TabItem>
+            <TabItem Name="ScienceDataTab" Header="Data" Height="22" Margin="-2,-2,-2.333,0" VerticalAlignment="Bottom">
+                <ScrollViewer>
+                    <DockPanel>
+                        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
+                            <Button Margin="3" Name="ClrData" Content="Clr" Click="ClrData_Click" />
+                            <Button Margin="3" Name="ScienceData" Content="Get ScienceData" Click="ScienceData_Click" />
+                        </StackPanel>
+                        <TextBlock Margin="3" Name="dataResult" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Text="{Binding Path=Resulttext}"/>
+                    </DockPanel>
+                </ScrollViewer>
+            </TabItem>
+        </TabControl>
+    </DockPanel>
 </Window>
