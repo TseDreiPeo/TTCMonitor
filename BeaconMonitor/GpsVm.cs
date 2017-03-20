@@ -67,7 +67,7 @@ namespace BeaconMonitor
 
         internal void SendLine(String line)
         {
-            Port.WriteLine(line);
+            Port?.WriteLine(line);
             // local echo:
             this.WriteLine(line + Environment.NewLine, Colors.Blue);
         }

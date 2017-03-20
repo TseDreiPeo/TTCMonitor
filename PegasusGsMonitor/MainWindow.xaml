@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="825">
     <DockPanel>
-        <!--<TextBox DockPanel.Dock="Top" Margin="5" Text="{Binding Path=Uri, Mode=OneWay}" />-->
+        <TextBox DockPanel.Dock="Top" Margin="5" Text="{Binding Path=Uri, Mode=OneWay}" />
         <Grid DockPanel.Dock="Top">
             <Grid.RowDefinitions>
                 <RowDefinition/>

@@ -29,6 +29,7 @@ namespace BeaconMonitor
         private StreamWriter MyLogFile;
         private AdcsUplinkVm AdcsVm;
         private GpsVm GpsVm;
+        private TtVm TelemetryVm;
         private DispatcherTimer dispatcherTimer;
 
 
@@ -48,11 +49,19 @@ namespace BeaconMonitor
             GpsVm = new GpsVm(terminalTxt);
             this.gpsTab.DataContext = GpsVm;
 
+            TelemetryVm = new TtVm(GetStacieService);
+            this.TTGrid.DataContext = TelemetryVm;
+
             dispatcherTimer = new System.Windows.Threading.DispatcherTimer();
             dispatcherTimer.Tick += dispatcherTimer_Tick;
             dispatcherTimer.Interval = new TimeSpan(0, 0, 1);
             dispatcherTimer.Start();
 
+        }
+
+        StacieCom GetStacieService()
+        {
+            return MyStacie;
         }
         private void dispatcherTimer_Tick(object sender, EventArgs e)
         {
@@ -101,9 +110,20 @@ namespace BeaconMonitor
                     }
 
                 }
+
+                GetTelemetryExec tte = e.ReceivedPackage as GetTelemetryExec;
+                if (tte != null)
+                {
+                    TelemetryVm.SendTelemetryAck(tte.RecordId);
+                }
             }));
 
 
+        }
+
+        private void SendTelemetryAck(int recordId)
+        {
+            
         }
 
         private void OnDownlinkFinished(DownlinkData dd)
@@ -261,7 +281,7 @@ namespace BeaconMonitor
 
         private void Cmd3_Click(object sender, RoutedEventArgs e)
         {
-            this.GpsVm.SendLine("$C,10002,0,0*");
+            this.GpsVm.SendLine("$C,10003,0,0*");
         }
 
         private void Cmd4_Click(object sender, RoutedEventArgs e)

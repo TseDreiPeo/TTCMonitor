@@ -16,24 +16,55 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <TabControl>
-            <TabItem Header="Com">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                    </Grid.RowDefinitions>
-                    <StackPanel Orientation="Horizontal">
+            <TabItem Header="Stacie">
+                <DockPanel>
+                    <StackPanel DockPanel.Dock="Left">
                         <ComboBox x:Name="comSelector1" MinWidth="70" VerticalAlignment="Top" />
-                        <TextBox x:Name="logText1" Height="200" MinWidth="200" VerticalAlignment="Top"  />
                         <Button Name="ClearCom1" Content="Clr" Click="ClearCom1_Click" VerticalAlignment="Top"  />
+                        <Grid Name="TTGrid">
+                            <Grid.Resources>
+                                <Style TargetType="{x:Type TextBox}">
+                                    <Setter Property="Margin" Value="0,0,4,4" />
+                                </Style>
+                            </Grid.Resources>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition Height="26"/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <Border Grid.RowSpan="6" Grid.ColumnSpan="2" BorderBrush="Black" BorderThickness="2" />
+                            <Border Grid.Row="0" Grid.ColumnSpan="2" BorderBrush="Black" BorderThickness="1" />
+
+
+                            <Label Grid.Row="0" Grid.Column="0" Content="TT act:"/>
+                            <CheckBox Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" IsChecked="{Binding Path=Enabled}"/>
+                            <Label Grid.Row="1" Grid.Column="0" Content="Mode:"/>
+                            <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Path=Mode}" MinWidth="30"/>
+                            <Label Grid.Row="2" Grid.Column="0" Content="Temp1:"/>
+                            <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Path=Temp1}" />
+                            <Label Grid.Row="3" Grid.Column="0" Content="Temp2:"/>
+                            <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding Path=Temp2}" />
+                            <Label Grid.Row="4" Grid.Column="0" Content="RSSI A/C:"/>
+                            <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding Path=RssiAC}" />
+                            <Label Grid.Row="5" Grid.Column="0" Content="Version:"/>
+                            <TextBox Grid.Row="5" Grid.Column="1" Text="{Binding Path=Version}" />
+                        </Grid>
                     </StackPanel>
-                    <StackPanel Orientation="Horizontal" Grid.Row="1" Height="Auto">
+                    <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" Grid.Row="1" Height="Auto">
                         <TextBox x:Name="logFile"  Text="c:\Qtemp" Width="258"/>
                         <Button x:Name="selectFile" Content="..." Click="selectFile_Click"/>
                         <CheckBox x:Name="writeLog" Content="Write Log" Checked="writeLog_Checked" Unchecked="writeLog_Unchecked"/>
                     </StackPanel>
-                </Grid>
+                    <TextBox x:Name="logText1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
+
+                </DockPanel>
             </TabItem>
             <TabItem Name="adcsTab" Header="ADCS-Up">
                 <Grid>

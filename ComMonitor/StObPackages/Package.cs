@@ -6,7 +6,7 @@ namespace ComMonitor {
 
         public const byte C_PCKCMD_TRANSMIT = 0x07;
         public const byte C_PCKCMD_RECEIVE = 0x1E;
-        private const byte C_PCKCMD_GETTELEMETRY = 0x2D;
+        public const byte C_PCKCMD_GETTELEMETRY = 0x2D;
         private const byte C_PCKCMD_OPMODE = 0x2A;
 
         public const byte C_PCKTYP_EXEC = 0x4b;

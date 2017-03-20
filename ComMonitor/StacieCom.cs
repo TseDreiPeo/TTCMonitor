@@ -42,5 +42,23 @@ namespace ComMonitor {
             Port.Write(buffer, 0, 2);
         }
 
+        public void SendTelemetryAck(byte recordId, int value)
+        {
+            int idx = 0;
+            Byte[] buffer = new Byte[49];
+            buffer[idx++] = Package.C_PCKCMD_GETTELEMETRY;
+            buffer[idx++] = Package.C_PCKTYP_ACK;
+            buffer[idx++] = recordId;
+            buffer[idx++] = (byte)(value & 0x00FF);
+            if (recordId == GetTelemetryExec.C_TTRECID_RSSI)
+            {
+                buffer[idx++] = (byte)(value >> 8);
+            }
+            var crc = new CRC8Calc(CRC8_POLY.CRC8_CCITT);
+            buffer[idx] = crc.Checksum(2, idx-2, buffer); 
+
+            Port.Write(buffer, 0, idx + 1);
+            
+        }
     }
 }
