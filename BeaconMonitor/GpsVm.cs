@@ -67,11 +67,23 @@ namespace BeaconMonitor
 
         internal void SendLine(String line)
         {
+            //line = AdjustChecksum(line);
+
             Port?.WriteLine(line);
             // local echo:
             this.WriteLine(line + Environment.NewLine, Colors.Blue);
         }
 
+        private string AdjustChecksum(string line)
+        {
+            string content = line.Substring(1, line.IndexOf("*")-1);
+            int checksum = 0;
+            for (int i = 0; i < content.Length; i++)
+            {
+                checksum ^= Convert.ToByte(content[i]);
+            }
+            return "$" + content + "*" + checksum.ToString("X2");
+        }
 
         private void WriteLine(string line, Color? color = null)
         {
@@ -114,11 +126,11 @@ namespace BeaconMonitor
             {
                 if (l1 != null)
                 {
-                    SendLine(l1);
+                    SendLine(AdjustChecksum(l1));
                 }
                 if (l2 != null)
                 {
-                    SendLine(l2);
+                    SendLine(AdjustChecksum(l2));
                 }
             }));
         }

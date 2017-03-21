@@ -43,7 +43,7 @@ namespace BeaconMonitor
             this.comSelector2.SelectionChanged += ComSelector2_SelectionChanged;
 
 
-            AdcsVm = new AdcsUplinkVm();
+            AdcsVm = new AdcsUplinkVm(GetStacieService);
             this.adcsTab.DataContext = AdcsVm;
 
             GpsVm = new GpsVm(terminalTxt);
@@ -93,8 +93,7 @@ namespace BeaconMonitor
         {
             Application.Current?.Dispatcher?.Invoke(new Action(() =>
             {
-                this.logText1.Text += Environment.NewLine + e.ReceivedPackage.ToString();
-
+                bool logPackage = true;
                 TransmitExec te = e.ReceivedPackage as TransmitExec;
                 if (te != null)
                 {
@@ -114,17 +113,19 @@ namespace BeaconMonitor
                 GetTelemetryExec tte = e.ReceivedPackage as GetTelemetryExec;
                 if (tte != null)
                 {
+                    if (!this.ShowTT.IsChecked ?? true)
+                    {
+                        logPackage = false;
+                    }
                     TelemetryVm.SendTelemetryAck(tte.RecordId);
                 }
+
+                if (logPackage) {
+                    this.logText1.Text += Environment.NewLine + e.ReceivedPackage.ToString();
+                }
             }));
-
-
         }
 
-        private void SendTelemetryAck(int recordId)
-        {
-            
-        }
 
         private void OnDownlinkFinished(DownlinkData dd)
         {
@@ -140,40 +141,49 @@ namespace BeaconMonitor
         {
             try
             {
-                Int32 deltaSec = AdcsVm.RtcDelta;
-                this.logText1.Text = $"Send {deltaSec} delta.";
-                MyStacie.SendAdusrtRTC(deltaSec);
-                MyLogFile?.WriteLine(DateTime.UtcNow + ":" + this.logText1.Text);
-                this.AdcsVm.LastSynced = null;
+                this.logText1.Text = AdcsVm.SendDelta();
             }
             catch (Exception ex)
             {
                 this.logText1.Text = ex.Message;
             }
+        }
+
+        private void SyncToUTC(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                this.logText1.Text = AdcsVm.SyncToUTC();
+            }
+            catch (Exception ex)
+            {
+                this.logText1.Text = ex.Message;
+            }
+           
         }
 
         private void selectFile_Click(object sender, RoutedEventArgs e)
         {
 
-            SaveFileDialog saveFileDialog = new SaveFileDialog();
-            saveFileDialog.FileName = this.logFile.Text;
-            if (saveFileDialog.ShowDialog() == true)
-            {
-                this.logFile.Text = saveFileDialog.FileName;
-            }
+            //SaveFileDialog saveFileDialog = new SaveFileDialog();
+            //saveFileDialog.FileName = this.logFile.Text;
+            //if (saveFileDialog.ShowDialog() == true)
+            //{
+            //    this.logFile.Text = saveFileDialog.FileName;
+            //}
 
         }
 
         private void writeLog_Checked(object sender, RoutedEventArgs e)
         {
-            try
-            {
-                MyLogFile = File.AppendText(this.logFile.Text);
-            }
-            catch (Exception ex)
-            {
-                this.logText1.Text = ex.Message;
-            }
+            //try
+            //{
+            //    MyLogFile = File.AppendText(this.logFile.Text);
+            //}
+            //catch (Exception ex)
+            //{
+            //    this.logText1.Text = ex.Message;
+            //}
         }
 
         private void writeLog_Unchecked(object sender, RoutedEventArgs e)
@@ -185,37 +195,10 @@ namespace BeaconMonitor
 
         private void Calculate_DeltaTime(object sender, RoutedEventArgs e)
         {
-            TimeSpan? diff = (this.AdcsVm.DesiredDate.AddHours(AdcsVm.DesiredHour).AddMinutes(AdcsVm.DesiredMin) - this.AdcsVm.BoardTime);
-            if (diff != null)
-            {
-                this.AdcsVm.RtcDeltaSeconds = (short)diff.Value.Seconds;
-                this.AdcsVm.RtcDeltaMinutes = (short)diff.Value.Minutes;
-                this.AdcsVm.RtcDeltaHours = (short)diff.Value.Hours;
-                this.AdcsVm.RtcDeltaDays = (short)diff.Value.TotalDays;
-            }
-
+            AdcsVm.Calculate_DeltaTime();
         }
 
-        private void SyncToUTC(object sender, RoutedEventArgs e)
-        {
-            TimeSpan? diff = (this.AdcsVm.UTC - this.AdcsVm.BoardTime);
-            if (diff != null)
-            {
-                try
-                {
-                    Int32 deltaSec = (Int32)diff.Value.TotalSeconds - 1;
-                    this.logText1.Text = $"Send {deltaSec} delta.";
-                    MyStacie.SendAdusrtRTC(deltaSec);
-                    MyLogFile?.WriteLine(DateTime.UtcNow + ":" + this.logText1.Text);
-                    this.AdcsVm.LastSynced = null;
-                }
-                catch (Exception ex)
-                {
-                    this.logText1.Text = ex.Message;
-                }
-            }
-
-        }
+       
 
         private void ClearCom1_Click(object sender, RoutedEventArgs e)
         {
@@ -260,7 +243,7 @@ namespace BeaconMonitor
         }
 
 
-            private void TextBox_KeyDown(object sender, KeyEventArgs e)
+        private void TextBox_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Return)
             {

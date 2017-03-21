@@ -1,59 +1,66 @@
-﻿using MMVVM;
+﻿using ComMonitor;
+using MMVVM;
 using System;
 //using System.Runtime;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 
 namespace BeaconMonitor {
     public class AdcsUplinkVm : ObservableObject {
 
+        private Func<StacieCom> StacieService = null;
+        public AdcsUplinkVm(Func<StacieCom> getStacieService)
+        {
+            this.StacieService = getStacieService;
+        }
+
         #region Data Mappings
         // ADCS Mapping members
-        private Double _AdcsTime = 0;
+        private Double _AdcsTime = 1234.5678;
         public Double AdcsTime
         {
             get { return _AdcsTime; }
             set { ChangeValue(value); }
         }
-        private Single _AdcsAxis = 0;
+        private Single _AdcsAxis = 1.2F;
         public Single AdcsAxis
         {
             get { return _AdcsAxis; }
             set { ChangeValue(value); }
         }
-        private Single _AdcsEcc = 0;
+        private Single _AdcsEccentricity = 2.3F;
         public Single AdcsEccentricity
         {
-            get { return _AdcsEcc; }
+            get { return _AdcsEccentricity; }
             set { ChangeValue(value); }
         }
-        private Single _AdcsPeriapsis = 0;
+        private Single _AdcsPeriapsis = 3.4F;
         public Single AdcsPeriapsis
         {
             get { return _AdcsPeriapsis; }
             set { ChangeValue(value); }
         }
-        private Single _AdcsLongOfAsc = 0;
+        private Single _AdcsLongOfAsc = 4.5F;
         public Single AdcsLongOfAsc
         {
             get { return _AdcsLongOfAsc; }
             set { ChangeValue(value); }
         }
-        private Single _AdcsInclination = 0;
+        private Single _AdcsInclination = 5.6F;
         public Single AdcsInclination
         {
             get { return _AdcsInclination; }
             set { ChangeValue(value); }
         }
-        private Single _AdcsMean = 0;
+        private Single _AdcsMean = 6.7F;
         public Single AdcsMean
         {
             get { return _AdcsMean; }
             set { ChangeValue(value); }
         }
-
 
         // RTC Mapping Members
         private Int16 _RtcDeltaDays = 0;
@@ -167,9 +174,32 @@ namespace BeaconMonitor {
                      + (Int32)RtcDeltaSeconds;
             }
         }
-
         #endregion
 
+        internal string SyncToUTC()
+        {
+            String retVal = String.Empty;
+            TimeSpan? diff = (UTC - BoardTime);
+            if (diff != null)
+            {
+                Int32 deltaSec = (Int32)diff.Value.TotalSeconds - 1;
+                StacieService().SendAdusrtRTC(deltaSec);
+                LastSynced = null;
+                retVal = $"Sent {deltaSec} delta.";
+            }
+            return retVal;
+        }
+
+        internal String SendDelta()
+        {
+            String retVal = String.Empty;
+            Int32 deltaSec = RtcDelta;
+            StacieService().SendOrbitAndAdusrtRTC(this.AdcsAxis, this.AdcsEccentricity, this.AdcsInclination,
+                this.AdcsLongOfAsc, this.AdcsMean, this.AdcsPeriapsis, this.AdcsTime, deltaSec);
+            LastSynced = null;
+            retVal = $"Sent: {deltaSec} delta.";
+            return retVal;
+        }
 
         public void Refresh(int deltaSeconds = 1)
         {
@@ -179,14 +209,11 @@ namespace BeaconMonitor {
             if (this.LastSynced != null)
             {
                 TimeSpan delta = UTC - LastSynced.Value;
-
                 if (BoardTime != null)
                 {
                     BoardTime = BoardTime.Value.AddSeconds(deltaSeconds);
                 }
             }
-
-
         }
 
         public void SyncBoardTime(DateTime? boardTime)
@@ -195,7 +222,16 @@ namespace BeaconMonitor {
             this.BoardTime = boardTime;
         }
 
-
-
+        public void Calculate_DeltaTime()
+        {
+            TimeSpan? diff = (DesiredDate.AddHours(DesiredHour).AddMinutes(DesiredMin) - BoardTime);
+            if (diff != null)
+            {
+                RtcDeltaSeconds = (short)diff.Value.Seconds;
+                RtcDeltaMinutes = (short)diff.Value.Minutes;
+                RtcDeltaHours = (short)diff.Value.Hours;
+                RtcDeltaDays = (short)diff.Value.TotalDays;
+            }
+        }
     }
 }

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BeaconMonitor"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="OBC Test Harness" Height="350" Width="525">
     <Window.Resources>
         <local:ColourConverter x:Key="MyColorConverter" />
     </Window.Resources>
@@ -21,6 +21,7 @@
                     <StackPanel DockPanel.Dock="Left">
                         <ComboBox x:Name="comSelector1" MinWidth="70" VerticalAlignment="Top" />
                         <Button Name="ClearCom1" Content="Clr" Click="ClearCom1_Click" VerticalAlignment="Top"  />
+                        <Label/>
                         <Grid Name="TTGrid">
                             <Grid.Resources>
                                 <Style TargetType="{x:Type TextBox}">
@@ -57,11 +58,14 @@
                             <TextBox Grid.Row="5" Grid.Column="1" Text="{Binding Path=Version}" />
                         </Grid>
                     </StackPanel>
-                    <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" Grid.Row="1" Height="Auto">
+                    <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
+                        <CheckBox Name="ShowTT" Content="TT-Com" IsChecked="true" />
+                    </StackPanel>
+                    <!--<StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" Grid.Row="1" Height="Auto">
                         <TextBox x:Name="logFile"  Text="c:\Qtemp" Width="258"/>
                         <Button x:Name="selectFile" Content="..." Click="selectFile_Click"/>
                         <CheckBox x:Name="writeLog" Content="Write Log" Checked="writeLog_Checked" Unchecked="writeLog_Unchecked"/>
-                    </StackPanel>
+                    </StackPanel>-->
                     <TextBox x:Name="logText1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
 
                 </DockPanel>
@@ -91,19 +95,19 @@
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
                         <Label Grid.Row="0" Grid.Column="0" Content="ADCS-Time:" />
-                        <TextBox Grid.Row="0" Grid.Column="1" Name="aTime" Text="0" MinWidth="60"/>
+                        <TextBox Grid.Row="0" Grid.Column="1" Name="aTime" Text="{Binding Path=AdcsTime}" MinWidth="60"/>
                         <Label Grid.Row="1" Grid.Column="0" Content="ADCS-Axis:" />
-                        <TextBox Grid.Row="1" Grid.Column="1" Name="aAxis" Text="0" MinWidth="60"/>
+                        <TextBox Grid.Row="1" Grid.Column="1" Name="aAxis" Text="{Binding Path=AdcsAxis}" MinWidth="60"/>
                         <Label Grid.Row="2" Grid.Column="0" Content="ADCS-ECC:" />
-                        <TextBox Grid.Row="2" Grid.Column="1" Name="aEcc" Text="0" MinWidth="60"/>
+                        <TextBox Grid.Row="2" Grid.Column="1" Name="aEcc" Text="{Binding Path=AdcsEccentricity}" MinWidth="60"/>
                         <Label Grid.Row="3" Grid.Column="0" Content="ADCS-Periap: " />
-                        <TextBox Grid.Row="3" Grid.Column="1" Name="aPeri" Text="0" MinWidth="60"/>
+                        <TextBox Grid.Row="3" Grid.Column="1" Name="aPeri" Text="{Binding Path=AdcsPeriapsis}" MinWidth="60"/>
                         <Label Grid.Row="4" Grid.Column="0" Content="ADCS-ASC:" />
-                        <TextBox Grid.Row="4" Grid.Column="1" Name="aAsc" Text="0" MinWidth="60"/>
+                        <TextBox Grid.Row="4" Grid.Column="1" Name="aAsc" Text="{Binding Path=AdcsLongOfAsc}" MinWidth="60"/>
                         <Label Grid.Row="5" Grid.Column="0" Content="ADCS-Inc:" />
-                        <TextBox Grid.Row="5" Grid.Column="1" Name="aInc" Text="0" MinWidth="60"/>
+                        <TextBox Grid.Row="5" Grid.Column="1" Name="aInc" Text="{Binding Path=AdcsInclination}" MinWidth="60"/>
                         <Label Grid.Row="6" Grid.Column="0" Content="ADCS-Mean: " />
-                        <TextBox Grid.Row="6" Grid.Column="1" Name="aMean" Text="0" MinWidth="60"/>
+                        <TextBox Grid.Row="6" Grid.Column="1" Name="aMean" Text="{Binding Path=AdcsMean}" MinWidth="60"/>
                         
                         <Label Grid.Row="0" Grid.Column="2" Content="UTC  Time: " />
                         <StackPanel Grid.Row="0" Grid.Column="3" Orientation="Horizontal"  >
