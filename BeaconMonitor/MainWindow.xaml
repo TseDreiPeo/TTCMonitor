@@ -162,6 +162,8 @@
                         <Label/>
                         <Button Name="Cmd1" Content="Info" Click="Cmd1_Click" />
                         <Button Name="Cmd2" Content="TTC Info" Click="Cmd2_Click"/>
+                        <ToggleButton Name="Cmd2a" Content="ADCS enable" Click="Cmd2a_Click"   />
+                        <Button Name="Cmd2b" Content="ADCS Info" Click="Cmd2b_Click"     />
                         <Button Name="Cmd3" Content="Logger Info" Click="Cmd3_Click" />
                         <Button Name="Cmd4" Content="Scripts" Click="Cmd4_Click"/>
                         <Label/>

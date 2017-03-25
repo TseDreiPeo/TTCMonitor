@@ -76,22 +76,32 @@ namespace ComMonitor {
 
             int nrOfSatelites = currentPackageBytes[13] & 0x0f;
 
-            int latMinFract = currentPackageBytes[13] & 0xf0 >> 4 | ((int)currentPackageBytes[14]) << 4 |
-                               ((int)currentPackageBytes[15] & 0x01) << 12;
-            int latMin = currentPackageBytes[15] & 0xfE >> 1;
+            int latMinFract = ((currentPackageBytes[13] & 0xf0) >> 4) | 
+                              (((int)currentPackageBytes[14]) << 4) |
+                              (((int)currentPackageBytes[15] & 0x01) << 12);
+            int latMin = (currentPackageBytes[15] & 0xfE) >> 1;
             int lat = currentPackageBytes[16] & 0x7F;
-            if ((currentPackageBytes[16] & 0x10) > 0) {
+            if ((currentPackageBytes[16] & 0x80) > 0) {
                 lat = -lat;
             }
-            int lon =              currentPackageBytes[17] | ((int)currentPackageBytes[18]) << 8 |
-                      ((int)currentPackageBytes[18]) << 16 | ((int)(currentPackageBytes[19] & 0x1F)) << 24;
-            int alt = currentPackageBytes[19] & 0xE0 >> 5 | ((int)currentPackageBytes[20]) << 3 |
-                      ((int)currentPackageBytes[21]) << 11 | ((int)currentPackageBytes[22] & 0x01) << 19;
 
-            retVal += $"Sats : {nrOfSatelites}" + Environment.NewLine;
-            retVal += $"Lat  : {lat} {latMin}.{latMinFract}" + Environment.NewLine;
-            retVal += $"Lon  : {lon}" + Environment.NewLine;
-            retVal += $"Alt  : {alt}" + Environment.NewLine;
+            int lonMinFract = currentPackageBytes[17] | (((int)currentPackageBytes[18] & 0x1F) << 8);
+            int lonMin = ((currentPackageBytes[18] & 0xE0) >> 5) |
+                          (currentPackageBytes[19] & 0x0F) << 3;
+            int lon = (currentPackageBytes[19] & 0xF0) >> 4 |
+                      (currentPackageBytes[20] & 0x0F) << 4;
+            if ((currentPackageBytes[20] & 0x10) > 0)
+            {
+                lon = -lon;
+            }
+
+            int alt = (currentPackageBytes[20] & 0xE0) >> 5 | ((int)currentPackageBytes[21]) << 3 |
+                      ((int)currentPackageBytes[22]) << 11 | ((int)currentPackageBytes[23] & 0x01) << 19;
+
+            retVal += $"Sats: {nrOfSatelites}" + Environment.NewLine;
+            retVal += $"Lat : {lat} deg {latMin}.{latMinFract} min" + Environment.NewLine;
+            retVal += $"Lon : {lon} deg {lonMin}.{lonMinFract} min" + Environment.NewLine;
+            retVal += $"Alt : {alt} m" + Environment.NewLine;
 
 
             return retVal;

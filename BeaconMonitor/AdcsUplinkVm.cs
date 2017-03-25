@@ -25,37 +25,37 @@ namespace BeaconMonitor {
             get { return _AdcsTime; }
             set { ChangeValue(value); }
         }
-        private Single _AdcsAxis = 1.2F;
+        private Single _AdcsAxis = 6770000.0F;
         public Single AdcsAxis
         {
             get { return _AdcsAxis; }
             set { ChangeValue(value); }
         }
-        private Single _AdcsEccentricity = 2.3F;
+        private Single _AdcsEccentricity = 0.01F;
         public Single AdcsEccentricity
         {
             get { return _AdcsEccentricity; }
             set { ChangeValue(value); }
         }
-        private Single _AdcsPeriapsis = 3.4F;
+        private Single _AdcsPeriapsis = 2.094395F;
         public Single AdcsPeriapsis
         {
             get { return _AdcsPeriapsis; }
             set { ChangeValue(value); }
         }
-        private Single _AdcsLongOfAsc = 4.5F;
+        private Single _AdcsLongOfAsc = 1.221730F;
         public Single AdcsLongOfAsc
         {
             get { return _AdcsLongOfAsc; }
             set { ChangeValue(value); }
         }
-        private Single _AdcsInclination = 5.6F;
+        private Single _AdcsInclination = 0.872665F;
         public Single AdcsInclination
         {
             get { return _AdcsInclination; }
             set { ChangeValue(value); }
         }
-        private Single _AdcsMean = 6.7F;
+        private Single _AdcsMean = 0.349066F;
         public Single AdcsMean
         {
             get { return _AdcsMean; }

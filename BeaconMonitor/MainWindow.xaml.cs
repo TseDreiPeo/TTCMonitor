@@ -17,6 +17,7 @@ using System.Windows.Shapes;
 using ComMonitor;
 using Microsoft.Win32;
 using System.Windows.Threading;
+using System.Windows.Controls.Primitives;
 
 namespace BeaconMonitor
 {
@@ -280,6 +281,25 @@ namespace BeaconMonitor
         private void Cmd5_Click(object sender, RoutedEventArgs e)
         {
             this.GpsVm.SendLine($"$C,51,{this.gpsTimeMin.Text},0*");
+        }
+
+        private void Cmd2a_Click(object sender, RoutedEventArgs e)
+        {
+
+            this.GpsVm.SendLine($"$C,48,{((((ToggleButton)sender).IsChecked??false)?1:0)},0*");
+            if (((ToggleButton)sender).IsChecked??false)
+            {
+                ((ToggleButton)sender).Content = "disable ADCS";
+            } else
+            {
+                ((ToggleButton)sender).Content = "enable ADCS";
+            }
+
+        }
+
+        private void Cmd2b_Click(object sender, RoutedEventArgs e)
+        {
+            this.GpsVm.SendLine($"$C,1000,0,0*");
         }
     }
 }

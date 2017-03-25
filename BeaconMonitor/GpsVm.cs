@@ -16,7 +16,7 @@ namespace BeaconMonitor
 
         private RichTextBox terminalTxt;
 
-        private string _GpsSimPath = @"c:\qtemp\qb50test\gps.txt";
+        private string _GpsSimPath = @"c:\qtemp\qb50test\gps3.txt";
         public string GpsSimPath
         {
             get { return _GpsSimPath; }
