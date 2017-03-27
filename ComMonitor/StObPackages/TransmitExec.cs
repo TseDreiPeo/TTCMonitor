@@ -45,7 +45,7 @@ namespace ComMonitor {
 
  
         private string CreateObcBeacon2String(byte[]currentPackageBytes) {
-
+            return ObcBeacon2.CreateContetntString(currentPackageBytes);
             BitArray x = new BitArray(currentPackageBytes);
            
             

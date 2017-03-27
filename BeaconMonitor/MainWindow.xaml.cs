@@ -32,6 +32,7 @@ namespace BeaconMonitor
         private GpsVm GpsVm;
         private TtVm TelemetryVm;
         private DispatcherTimer dispatcherTimer;
+        private BeaconsVm BeaconsVm;
 
 
         public MainWindow()
@@ -52,6 +53,9 @@ namespace BeaconMonitor
 
             TelemetryVm = new TtVm(GetStacieService);
             this.TTGrid.DataContext = TelemetryVm;
+
+            BeaconsVm = new BeaconsVm();
+            this.BeaconsTab.DataContext = BeaconsVm;
 
             dispatcherTimer = new System.Windows.Threading.DispatcherTimer();
             dispatcherTimer.Tick += dispatcherTimer_Tick;
@@ -133,9 +137,21 @@ namespace BeaconMonitor
             ObcBeacon2 ob2 = dd as ObcBeacon2;
             if (ob2 != null)
             {
-                AdcsVm.SyncBoardTime(ob2.BoardTime);
-
+                if (!ob2.Fix)
+                {
+                    AdcsVm.SyncBoardTime(ob2.BoardTime);
+                } else
+                {
+                    AdcsVm.BoardTime = null;
+                }
+                BeaconsVm.Add(ob2);
             }
+            ObcBeacon1 ob1 = dd as ObcBeacon1;
+            if (ob1 != null)
+            {
+                BeaconsVm.Add(ob1);
+            }
+            
         }
 
         private void sendDelta_Click(object sender, RoutedEventArgs e)
@@ -300,6 +316,16 @@ namespace BeaconMonitor
         private void Cmd2b_Click(object sender, RoutedEventArgs e)
         {
             this.GpsVm.SendLine($"$C,1000,0,0*");
+        }
+
+        private void prevBeacon_Click(object sender, RoutedEventArgs e)
+        {
+            //this.BeaconsVm.Prev();
+        }
+
+        private void nextBeacon_Click(object sender, RoutedEventArgs e)
+        {
+            //this.BeaconsVm.Next();
         }
     }
 }

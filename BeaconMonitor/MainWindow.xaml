@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BeaconMonitor"
         mc:Ignorable="d"
-        Title="OBC Test Harness" Height="350" Width="525">
+        Title="OBC Test Harness" Height="400" Width="525">
     <Window.Resources>
         <local:ColourConverter x:Key="MyColorConverter" />
     </Window.Resources>
@@ -70,6 +70,116 @@
 
                 </DockPanel>
             </TabItem>
+            <TabItem Header="Beacons" Name="BeaconsTab">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="65*"/>
+                        <ColumnDefinition Width="447*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Border Grid.Row="1" BorderBrush="Black" BorderThickness="1" Grid.ColumnSpan="2" Margin="0,0,-0.334,0" />
+                    <Border Grid.Row="2" BorderBrush="Black" BorderThickness="1" Grid.ColumnSpan="2" Margin="0,0,-0.334,-0.333" />
+                    <StackPanel Grid.Row="0" Orientation="Horizontal" VerticalAlignment="Top" Grid.ColumnSpan="2" Margin="0,0,-0.333,0" HorizontalAlignment="Right" Width="513" >
+                        <Button Name="prevBeacon" Content="Prev" Click="prevBeacon_Click"/>
+                        <TextBox Text="{Binding Path=SelectedBeacon1Received}"/>
+                        <TextBox Text="{Binding Path=SelectedBeacon2Received}"/>
+                        <Button Name="nextBeacon" Content="Next" Click="nextBeacon_Click"   />
+                    </StackPanel>
+                    <DockPanel Grid.Row="1" Grid.ColumnSpan="2" Margin="0,0,-0.334,0">
+                        <Label DockPanel.Dock="Top" Content="OBC Beacon 1/2" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition MinWidth="30"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition MinWidth="30"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Row="0" Grid.Column="0" Content="Received:" />
+                            <TextBox Grid.Row="0" Grid.Column="1"  Text="{Binding Path=SelectedBeacon1Received}" />
+
+                            <Label Grid.Row="1" Grid.Column="0" Content="Call Sign:" />
+                            <TextBox Grid.Row="1" Grid.Column="1"  Text="{Binding Path=B1CallSign}" />
+
+                            <Label Grid.Row="2" Grid.Column="0" Content="Val3:" />
+                            <TextBox Grid.Row="2" Grid.Column="1"  Text=" -- Val1 -- " />
+
+                            <Label Grid.Row="0" Grid.Column="2" Content="Val1:" />
+                            <TextBox Grid.Row="0" Grid.Column="3"  Text=" -- Val1 -- " />
+
+                            <Label Grid.Row="1" Grid.Column="2" Content="Val2:" />
+                            <TextBox Grid.Row="1" Grid.Column="3"  Text=" -- Val1 -- " />
+
+                            <Label Grid.Row="2" Grid.Column="2" Content="Val3:" />
+                            <TextBox Grid.Row="2" Grid.Column="3"  Text=" -- Val1 -- " />
+
+                        </Grid>
+                    </DockPanel>
+                    <DockPanel Grid.Row="2" Grid.ColumnSpan="2" Margin="0,0,-0.334,-0.333">
+                        <Label DockPanel.Dock="Top" Content="OBC Beacon 2/2" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition MinWidth="30"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition MinWidth="30"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Row="0" Grid.Column="0" Content="Received:(UTC)" />
+                            <TextBox Grid.Row="0" Grid.Column="1"  Text="{Binding Path=SelectedBeacon2Received}" />
+
+                            <Label Grid.Row="1" Grid.Column="0" Content="Call Sign:" />
+                            <TextBox Grid.Row="1" Grid.Column="1"  Text="{Binding Path=B2CallSign}" />
+
+                            <!--<Label Grid.Row="2" Grid.Column="0" Content="Fix/Check F1/F2" />-->
+                            <StackPanel Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"  Orientation="Horizontal" HorizontalAlignment="Right" >
+                                <CheckBox Width="50" IsChecked="{Binding Path=GpsFix}"  Content="Fix"/>
+                                <CheckBox Width="60" IsChecked="{Binding Path=FlashCheckL}"  Content="Flash L"/>
+                                <CheckBox Width="60" IsChecked="{Binding Path=FlashCheckH}"  Content="Flash H"/>
+                            </StackPanel>
+
+                            <Label Grid.Row="1" Grid.Column="0" Content="Call Sign:" />
+                            <TextBox Grid.Row="1" Grid.Column="1"  Text="{Binding Path=B2CallSign}" />
+
+                            <Label Grid.Row="3" Grid.Column="0" Content="Adcs Stat:" />
+                            <TextBox Grid.Row="3" Grid.Column="1"  Text="{Binding Path=AdcsStatus}" />
+
+                            <Label Grid.Row="4" Grid.Column="0" Content="Angel Dev:" />
+                            <TextBox Grid.Row="4" Grid.Column="1"  Text="{Binding Path=AdcsAngleDeviation}" />
+
+                            <Label Grid.Row="0" Grid.Column="2" Content="{Binding Path=TimeLabel}" />
+                            <TextBox Grid.Row="0" Grid.Column="3"  Text="{Binding Path=BoardFixTime}" />
+
+                            <Label Grid.Row="1" Grid.Column="2" Content="Lat:" />
+                            <TextBox Grid.Row="1" Grid.Column="3"  Text="{Binding Path=Lattitude}" />
+
+                            <Label Grid.Row="2" Grid.Column="2" Content="Lon:" />
+                            <TextBox Grid.Row="2" Grid.Column="3"  Text="{Binding Path=Longitude}" />
+
+                            <Label Grid.Row="3" Grid.Column="2" Content="Alt:" />
+                            <TextBox Grid.Row="3" Grid.Column="3"  Text="{Binding Path=Altitude}" />
+
+                            
+                        </Grid>
+
+                    </DockPanel>
+                </Grid>
+            </TabItem>
             <TabItem Name="adcsTab" Header="ADCS-Up">
                 <Grid>
                     <Grid.RowDefinitions>
@@ -108,10 +218,10 @@
                         <TextBox Grid.Row="5" Grid.Column="1" Name="aInc" Text="{Binding Path=AdcsInclination}" MinWidth="60"/>
                         <Label Grid.Row="6" Grid.Column="0" Content="ADCS-Mean: " />
                         <TextBox Grid.Row="6" Grid.Column="1" Name="aMean" Text="{Binding Path=AdcsMean}" MinWidth="60"/>
-                        
+
                         <Label Grid.Row="0" Grid.Column="2" Content="UTC  Time: " />
                         <StackPanel Grid.Row="0" Grid.Column="3" Orientation="Horizontal"  >
-                             <TextBox Text="{Binding Path=UTC, Mode=OneWay}" MinWidth="135" IsEnabled="False"/>
+                            <TextBox Text="{Binding Path=UTC, Mode=OneWay}" MinWidth="135" IsEnabled="False"/>
                             <Button Content="Sync Pegasus" Click="SyncToUTC"/>
                         </StackPanel>
                         <Label Grid.Row="1" Grid.Column="2" Content="Board Time: " />
@@ -139,7 +249,7 @@
                         <TextBox Grid.Row="7" Grid.Column="3" x:Name="rtcDelta" Text="{Binding RtcDelta, Mode=OneWay}" MinWidth="60" IsEnabled="False"/>
                     </Grid>
                     <StackPanel Orientation="Horizontal" Grid.Row="2" Height="Auto">
-                        
+
                         <Button x:Name="sendDelta" Content="Send Delta" Click="sendDelta_Click"/>
                     </StackPanel>
                 </Grid>
