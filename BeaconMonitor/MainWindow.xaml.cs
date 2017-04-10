@@ -272,6 +272,7 @@ namespace BeaconMonitor
         private void Cmd1_Click(object sender, RoutedEventArgs e)
         {
             this.GpsVm.SendLine("$C,10001,0,0*");
+            this.BeaconsVm.B2CallSign += ".x";
         }
 
         private void Cmd2_Click(object sender, RoutedEventArgs e)

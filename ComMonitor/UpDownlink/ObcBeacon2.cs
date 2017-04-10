@@ -10,8 +10,13 @@ namespace ComMonitor {
     public class ObcBeacon2 : DownlinkData {
         private List<TransmitExec> packages;
 
+        public ObcBeacon2 DeepBeacon
+        {
+            get { return this; }
+            set { }
+        }
 
-        public string CallSign { get; private set; }
+        public string CallSign { get;  set; }
         public bool Fix { get; private set; } = false;
         public DateTime? BoardTime { get; private set; } = null;
 

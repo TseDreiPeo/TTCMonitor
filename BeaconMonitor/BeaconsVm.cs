@@ -3,6 +3,7 @@ using MMVVM;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -27,6 +28,8 @@ namespace BeaconMonitor
             Add((DownlinkData)beacon1);
         }
 
+        
+
         public void Add(ObcBeacon2 beacon2)
         {
             Add((DownlinkData)beacon2);
@@ -42,7 +45,8 @@ namespace BeaconMonitor
             {
                 SelectedBeacon1Received = received;
                 SelectedBeacon1 = b1;
-                //B1CallSign = beacon.ToString();
+                InovokePropertyChanged(() => B1CallSign);
+                
             }
 
             ObcBeacon2 b2 = beacon as ObcBeacon2;
@@ -61,43 +65,44 @@ namespace BeaconMonitor
                 InovokePropertyChanged(() => AdcsAngleDeviation);
                 InovokePropertyChanged(() => TimeLabel);
                 InovokePropertyChanged(() => BoardFixTime);
-
-
-
             }
         }
 
-        private DateTime? _SelectedBeacon1Received;
+        private DateTime? _SelectedBeacon1Received = null;
         public DateTime? SelectedBeacon1Received
         {
             get { return _SelectedBeacon1Received; }
             set { ChangeValue(value); }
         }
 
-        private DateTime? _SelectedBeacon2Received;
+        private DateTime? _SelectedBeacon2ReceivedUnconventional = null;
         public DateTime? SelectedBeacon2Received
         {
-            get { return _SelectedBeacon2Received; }
-            set { ChangeValue(value); }
+            get { return _SelectedBeacon2ReceivedUnconventional; }
+            set { ChangeValue(value, ()=>_SelectedBeacon2ReceivedUnconventional); }
         }
 
         
         public string B1CallSign
         {
-            get { return SelectedBeacon1.ToString(); }
-            set { ChangeValue(value); }     // TODO: make ObservableObject to Wrapper View Model
+            get { return SelectedBeacon1.CallSign; }
+            set { ChangeValue(value, ()=>SelectedBeacon1.CallSign, SelectedBeacon1); }     
         }
+
+      
 
         public string B2CallSign
         {
-            get { return SelectedBeacon2?.CallSign; }
-            set { ChangeValue(value); }
+            get { return SelectedBeacon2?.DeepBeacon.DeepBeacon.CallSign; }
+            set  { ChangeValue(value, ()=>SelectedBeacon2.DeepBeacon.DeepBeacon.CallSign, SelectedBeacon2?.DeepBeacon?.DeepBeacon); }
         }
 
+        
         public String Longitude
         {
             get {
                 String retVal = SelectedBeacon2?.MyLocation?.Longitude.ToString();
+
                 if (!String.IsNullOrEmpty(retVal))
                 {
                     retVal += $" ({SelectedBeacon2?.LonDeg} deg {SelectedBeacon2?.LonMin} min)";

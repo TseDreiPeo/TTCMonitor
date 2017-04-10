@@ -11,5 +11,7 @@ namespace ComMonitor {
         public ObcBeacon1(List<TransmitExec> packages) {
             this.packages = packages;
         }
+
+        public string CallSign { get; set; } = "123456";
     }
 }
