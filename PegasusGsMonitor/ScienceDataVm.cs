@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Net.Http.Headers;
 
 namespace PegasusGsMonitor
 {
@@ -19,30 +20,48 @@ namespace PegasusGsMonitor
             set { ChangeValue(value); }
         }
 
-        public async void ParseForScienceData(Uri dataPage)
+        internal void ClearResults() {
+            Resulttext = String.Empty;
+        }
+
+        public async void ParseForScienceData(HttpClient client, Uri dataPage)
         {
-            // ... Use HttpClient.
-            using (HttpClient client = new HttpClient())
-            using (HttpResponseMessage response = await client.GetAsync(dataPage))
-            using (HttpContent content = response.Content)
-            {
+            var request = new HttpRequestMessage(HttpMethod.Post, dataPage);
+
+            using(HttpResponseMessage response = await client.SendAsync(request))
+            using(HttpContent content = response.Content) {
                 // ... Read the string.
                 string result = await content.ReadAsStringAsync();
-
                 // ... Display the result.
-                if (result != null &&
-                    result.Length > 0)
-                {
-                    //ParseStringAsDom(result);
-                    ParseString(result);
+                if(result != null &&
+                    result.Length > 0) {
+                    List<string>beaconLines = GetBeaconLinesFromDom(result);
+                    System.Windows.Application.Current.Dispatcher.Invoke(new Action(() => {
+                        if (beaconLines.Count>0) {
+                            this.Resulttext = "";
+                            beaconLines.ForEach(l => this.Resulttext += l + Environment.NewLine);
+                        } else {
+                            this.Resulttext = "Data: " + result;
+                        }
+                    }));
                 }
             }
         }
 
-      
-        internal void ClearResults()
-        {
-            Resulttext = String.Empty;
+        private List<string> GetBeaconLinesFromDom(string result) {
+            List<string> results = new List<string>();
+            int pos = 0;
+            while ((pos = result.IndexOf("beacon.php?id=", pos + 1)) > 0){
+                int start = result.LastIndexOf("<span class=norm >R", pos);
+                int end   = result.IndexOf("<br>", pos);
+
+                if((end > start) && start > 0) {
+                    results.Add(result.Substring(start, (end-start)));
+                } else {
+                    results.Add(result.Substring(pos, 30) + "..." );
+                }
+            }
+            return results;
         }
 
 

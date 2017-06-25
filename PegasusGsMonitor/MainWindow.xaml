@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PegasusGsMonitor"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="825">
+        Title="MainWindow" Closing="Window_Closing"  Height="350" Width="825">
     <DockPanel>
         <TextBox DockPanel.Dock="Top" Margin="5" Text="{Binding Path=Uri, Mode=OneWay}" />
         <Grid DockPanel.Dock="Top">
@@ -36,26 +36,37 @@
         </Grid>
         
         <TabControl>
-            <TabItem Header="Browse">
+            <TabItem Header="Login">
                 <DockPanel>
                 <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
-                <Button Name="Nav" Margin="5" Content="Get Page" Click="Nav_Click"    />
-                <Button Name="Back" Margin="5" Content="&lt;--" Click="Back_Click" />
-                <Button Name="Forward" Margin="5" Content="-->" Click="Forward_Click" />
+                        <StackPanel Name="SpLogin" Visibility="Visible" Orientation="Horizontal">
+                            <Label  Content="Email/User"/>
+                            <TextBox  Text="{Binding Path=UserName}" MinWidth="150"/>
+                            <Label  Content="Password"/>
+                            <PasswordBox Name="UPB" MinWidth="80"/>
+                            <Button Name="Login" Margin="5" Content="Login" Click="Login_Click" />
+                        </StackPanel>
+                        <StackPanel Name="SpLogout" Visibility="Collapsed" Orientation="Horizontal">
+                            <Label  Content="loggedi in as"/>
+                            <TextBox  Text="{Binding Path=LoggedInUser}" MinWidth="150"/>
+                            <Button Name="Logout" Margin="5" Content="Logout" Click="Logout_Click" />
+                        </StackPanel>
+                        <Button Name="GetData" Margin="5" Content="Get Data" Click="GetData_Click"    />
+                        <!--<Button Name="Back" Margin="5" Content="&lt;-" Click="Back_Click" />
+                <Button Name="Forward" Margin="5" Content="->" Click="Forward_Click" />-->
                 </StackPanel>
-                <WebBrowser Name="wb" HorizontalAlignment="Stretch" Margin="5" VerticalAlignment="Stretch" />
+                <TextBox Name="loginResult"></TextBox>
+                <!--<WebBrowser Name="wb" HorizontalAlignment="Stretch" Margin="5" VerticalAlignment="Stretch" />-->
                 </DockPanel>
             </TabItem>
             <TabItem Name="ScienceDataTab" Header="Data" Height="22" Margin="-2,-2,-2.333,0" VerticalAlignment="Bottom">
-                <ScrollViewer>
-                    <DockPanel>
-                        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
-                            <Button Margin="3" Name="ClrData" Content="Clr" Click="ClrData_Click" />
-                            <Button Margin="3" Name="ScienceData" Content="Get ScienceData" Click="ScienceData_Click" />
-                        </StackPanel>
-                        <TextBlock Margin="3" Name="dataResult" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Text="{Binding Path=Resulttext}"/>
-                    </DockPanel>
-                </ScrollViewer>
+                <DockPanel>
+                    <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
+                        <Button Margin="3" Name="ClrData" Content="Clr" Click="ClrData_Click" />
+                        <Button Margin="3" Name="ScienceData" Content="Get Data" Click="ScienceData_Click" />
+                    </StackPanel>
+                    <TextBox Margin="3" Name="dataResult" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Text="{Binding Path=Resulttext}" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto"/>
+                </DockPanel>
             </TabItem>
         </TabControl>
     </DockPanel>

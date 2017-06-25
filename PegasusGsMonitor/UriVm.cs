@@ -11,14 +11,29 @@ namespace PegasusGsMonitor
 {
     public class UriVm :ObservableObject
     {
-        private string _UriBase = "http://pharmalab.dorn.at/spacedata/";
+        private string _UriBase = "https://spacedatacenter.at/pegasus/";
         public string UriBase
         {
             get { return _UriBase; }
             set { ChangeValue(value); }
         }
 
-        private string _AppBase = "monitorv5.php";
+
+        private string _UserName = "reinhard.schnitzer@fhwn.ac.at";
+        public string UserName {
+            get { return _UserName; }
+            set { ChangeValue(value); }
+        }
+
+        
+        private string _LoggedInUser = string.Empty;
+        public string LoggedInUser {
+            get { return _LoggedInUser; }
+            set { ChangeValue(value); }
+        }
+
+
+        private string _AppBase = "beacon.php";
         public string AppBase
         {
             get { return _AppBase; }
@@ -32,7 +47,7 @@ namespace PegasusGsMonitor
             set { ChangeValue(value); }
         }
 
-        private DateTime _parFrom = new DateTime(2017,3,1,0,0,0);
+        private DateTime _parFrom = new DateTime(2017,6,23,0,0,0);
         public DateTime parFrom
         {
             get { return _parFrom; }
@@ -40,7 +55,7 @@ namespace PegasusGsMonitor
         }
 
 
-        private DateTime _parTo = new DateTime(2017, 3, 1, 23, 59, 59);
+        private DateTime _parTo = new DateTime(2017, 6, 23, 23, 59, 59);
         public DateTime parTo
         {
             get { return _parTo; }
