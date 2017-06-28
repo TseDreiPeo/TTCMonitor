@@ -19,7 +19,7 @@ namespace PegasusGsMonitor
         }
 
 
-        private string _UserName = "reinhard.schnitzer@fhwn.ac.at";
+        private string _UserName = "robert.qb50@rkos.at";
         public string UserName {
             get { return _UserName; }
             set { ChangeValue(value); }
