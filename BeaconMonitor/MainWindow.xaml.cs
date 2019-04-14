@@ -57,6 +57,22 @@ namespace BeaconMonitor
             BeaconsVm = new BeaconsVm();
             this.BeaconsTab.DataContext = BeaconsVm;
 
+            byte[] bytes = new byte[64];
+            int i = 0;
+            string testBeacon = "00 00 ";
+            testBeacon += "56 4F 4E 30 33 41 54 F1 EE 34 C8 55 8F 01 43 CF 1C 16 82 80 FA 06 01 00 D5 FF FF FF FE FF F0 7F 80 70 00 00 B8 30 00 00 63 66 70 66 00 00 7A";
+            var hexbytes = testBeacon.Split(' ');
+            foreach(var b in hexbytes) {
+                bytes[i++] = Convert.ToByte(b.Trim(),16);
+            }
+            var te = new TransmitExec(new DateTime(2017,07,23,09,20,17));
+            te.FillData(bytes);
+            List <TransmitExec> testBeaconExecs = new List<TransmitExec>();
+            testBeaconExecs.Add(te);
+
+
+            BeaconsVm.Add(new ObcBeacon2(testBeaconExecs));
+
             dispatcherTimer = new System.Windows.Threading.DispatcherTimer();
             dispatcherTimer.Tick += dispatcherTimer_Tick;
             dispatcherTimer.Interval = new TimeSpan(0, 0, 1);
